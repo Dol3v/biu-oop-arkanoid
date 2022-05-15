@@ -16,4 +16,22 @@ public class BlockRemover implements HitListener {
         beingHit.removeFromGame(game);
         remainingBlocks--;
     }
+
+    /**
+     * Gets the number of remaining blocks in the game.
+     *
+     * @return number of remaining blocks
+     */
+    public int getRemainingBlocks() {
+        return remainingBlocks;
+    }
+
+    /**
+     * Sets the number of remaining blocks in the game.
+     *
+     * @param remainingBlocks new number of remaining blocks
+     */
+    public void setRemainingBlocks(int remainingBlocks) {
+        this.remainingBlocks = remainingBlocks;
+    }
 }

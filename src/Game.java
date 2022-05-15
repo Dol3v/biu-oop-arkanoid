@@ -15,6 +15,7 @@ public class Game {
     private GameEnvironment environment;
     private GUI gui;
     private Sleeper sleeper;
+    private BlockRemover remover;
 
     /**
      * Initializes the game's sprites and collidables.
@@ -22,6 +23,7 @@ public class Game {
     public Game() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
+        this.remover = new BlockRemover(this, 0);
     }
 
     /**
@@ -88,11 +90,11 @@ public class Game {
                         Consts.BLOCK_LENGTH, blockColors[row]));
             }
         }
-        BlockRemover remover = new BlockRemover(this, blocks.size());
         for (Block block : blocks) {
             block.addHitListener(remover);
             block.addToGame(this);
         }
+        remover.setRemainingBlocks(blocks.size());
     }
 
     /**
@@ -131,6 +133,11 @@ public class Game {
             this.sprites.drawAllOn(d);
             gui.show(d);
             this.sprites.notifyAllTimePassed();
+
+            if (remover.getRemainingBlocks() == 0) {
+                gui.close();
+                return;
+            }
 
             // timing
             long usedTime = System.currentTimeMillis() - startTime;
