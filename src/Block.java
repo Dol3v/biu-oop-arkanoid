@@ -88,6 +88,7 @@ public class Block implements Collidable, Sprite, GameObject, HitNotifier {
     void removeFromGame(Game game) {
         game.removeCollidable(this);
         game.removeSprite(this);
+        removeAllHitListeners();
     }
 
     @Override
@@ -97,7 +98,11 @@ public class Block implements Collidable, Sprite, GameObject, HitNotifier {
 
     @Override
     public void removeHitListener(HitListener listener) {
-        hitListeners.add(listener);
+        hitListeners.remove(listener);
+    }
+
+    private void removeAllHitListeners() {
+        hitListeners.clear();
     }
 
     private void notifyHit(Ball hitter) {
