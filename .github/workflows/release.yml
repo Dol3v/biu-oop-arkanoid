@@ -12,7 +12,10 @@ jobs:
 
     steps:
       - name: "Create Zip"
-        run: zip -r Ass5.zip src build.xml
+        run: |
+          pwd
+          ls
+          zip -r Ass5.zip src build.xml
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
