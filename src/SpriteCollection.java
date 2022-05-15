@@ -39,13 +39,16 @@ public class SpriteCollection {
      * Calls the timePassed method on all sprites.
      */
     public void notifyAllTimePassed() {
-        for (Sprite sprite : sprites) {
+        // timePassed() may cause collisions, which may remove sprites
+        List<Sprite> spritesCopy = new ArrayList<>(sprites);
+
+        for (Sprite sprite : spritesCopy) {
             sprite.timePassed();
         }
     }
 
     /**
-     * Draws all of the collection's sprites on a draw surface.
+     * Draws all the collection's sprites on a draw surface.
      *
      * @param drawSurface surface to draw the sprites on
      */

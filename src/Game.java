@@ -96,9 +96,9 @@ public class Game {
                         Consts.BLOCK_LENGTH, blockColors[row]));
             }
         }
-        TestListener test = new TestListener();
+        BlockRemover remover = new BlockRemover(this, blocks.size());
         for (GameObject block : blocks) {
-            ((Block) block).addHitListener(test);
+            ((Block) block).addHitListener(remover);
         }
         addObjectsToGame(blocks);
 
