@@ -80,6 +80,8 @@ public class Paddle implements Sprite, Collidable, GameObject {
             case 5:
                 shift = 60;
                 break;
+            default:
+                break;
         }
         return currentVelocity.rotateBy(shift);
     }

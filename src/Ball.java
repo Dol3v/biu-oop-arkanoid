@@ -2,7 +2,7 @@ import abstractshapes.Line;
 import abstractshapes.Point;
 import biuoop.DrawSurface;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A circle with some radius, that can move in a given frame.

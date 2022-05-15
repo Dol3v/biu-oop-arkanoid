@@ -2,7 +2,7 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +16,7 @@ public class Game {
     private GUI gui;
     private Sleeper sleeper;
     private BlockRemover remover;
+    private Counter availableBalls;
 
     /**
      * Initializes the game's sprites and collidables.
@@ -23,6 +24,7 @@ public class Game {
     public Game() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
+        this.availableBalls = new Counter(0);
     }
 
     /**
@@ -114,6 +116,8 @@ public class Game {
         ball2.setVelocity(Velocity.fromAngleAndSpeed(310, Consts.BALL_SPEED));
         ball.addToGame(this);
         ball2.addToGame(this);
+        // increasing the number of balls
+        availableBalls.increase(2);
 
         Paddle paddle = new Paddle(gui.getKeyboardSensor());
         paddle.addToGame(this);

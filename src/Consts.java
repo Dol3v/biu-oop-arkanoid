@@ -1,6 +1,6 @@
 import abstractshapes.Point;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Consts that are used throughout the game.

@@ -1,7 +1,5 @@
 package abstractshapes;
 
-import biuoop.DrawSurface;
-
 /**
  * Line segment.
  */
