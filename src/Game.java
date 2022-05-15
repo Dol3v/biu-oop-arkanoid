@@ -61,24 +61,13 @@ public class Game {
     }
 
     /**
-     * Adds a list of collidables/sprites to the game.
-     *
-     * @param objects objects to add
-     */
-    public void addObjectsToGame(List<GameObject> objects) {
-        for (GameObject object : objects) {
-            object.addToGame(this);
-        }
-    }
-
-    /**
      * Initializes the game's GUI, objects, blocks. balls, and paddle.
      */
     public void initialize() {
         gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
         sleeper = new Sleeper();
 
-        List<GameObject> blocks = new ArrayList<>();
+        List<Block> blocks = new ArrayList<>();
 
         blocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         blocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
@@ -97,10 +86,10 @@ public class Game {
             }
         }
         BlockRemover remover = new BlockRemover(this, blocks.size());
-        for (GameObject block : blocks) {
-            ((Block) block).addHitListener(remover);
+        for (Block block : blocks) {
+            block.addHitListener(remover);
+            block.addToGame(this);
         }
-        addObjectsToGame(blocks);
 
         // adding balls
         Ball ball = new Ball(Consts.SCREEN_WIDTH / 2. - 60, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK, environment);
