@@ -15,7 +15,8 @@ public class Game {
     private GameEnvironment environment;
     private GUI gui;
     private Sleeper sleeper;
-    private BlockRemover remover;
+    private BlockRemover blockRemover;
+    private BallRemover ballRemover;
     private Counter availableBalls;
 
     /**
@@ -25,6 +26,7 @@ public class Game {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.availableBalls = new Counter(0);
+        this.ballRemover = new BallRemover(this);
     }
 
     /**
@@ -69,11 +71,16 @@ public class Game {
     public void addBlocksToGame() {
         List<Block> boundaryBlocks = new ArrayList<>();
 
+        // creating death block
+        Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
+                Consts.SCREEN_WIDTH, Color.GRAY);
+        deathBlock.addHitListener(ballRemover);
+
+        // creating boundary blocks
         boundaryBlocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
                 Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        boundaryBlocks.add(new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
-                Consts.SCREEN_WIDTH, Color.GRAY));
+        boundaryBlocks.add(deathBlock);
         boundaryBlocks.add(new Block(0, 0, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
 
         // boundary blocks are indestructible
@@ -91,10 +98,10 @@ public class Game {
                         Consts.BLOCK_LENGTH, blockColors[row]));
             }
         }
-        this.remover = new BlockRemover(this, blocks.size());
+        this.blockRemover = new BlockRemover(this, blocks.size());
 
         for (Block block : blocks) {
-            block.addHitListener(remover);
+            block.addHitListener(blockRemover);
             block.addToGame(this);
         }
     }
@@ -138,7 +145,7 @@ public class Game {
             gui.show(d);
             this.sprites.notifyAllTimePassed();
 
-            if (remover.getRemainingBlocks().getValue() == 0) {
+            if (blockRemover.getRemainingBlocks().getValue() == 0 ||  availableBalls.getValue() == 0) {
                 gui.close();
                 return;
             }
@@ -150,5 +157,14 @@ public class Game {
                 sleeper.sleepFor(milliSecondLeftToSleep);
             }
         }
+    }
+
+    /**
+     * Returns a reference to the counter for available balls in the game.
+     *
+     * @return available balls counter
+     */
+    public Counter getAvailableBalls() {
+        return availableBalls;
     }
 }
