@@ -3,7 +3,7 @@
  */
 public class BlockRemover implements HitListener {
 
-    private Game game;
+    private final Game game;
     private int remainingBlocks; //TODO: verify why in the world we need a Counter class for this
 
     public BlockRemover(Game game, int remainingBlocks) {
@@ -13,6 +13,8 @@ public class BlockRemover implements HitListener {
 
     @Override
     public void hitEvent(Block beingHit, Ball hitter) {
-
+        beingHit.removeFromGame(game);
+        beingHit.removeHitListener(this);
+        remainingBlocks--;
     }
 }
