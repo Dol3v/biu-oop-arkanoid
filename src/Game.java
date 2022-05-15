@@ -61,21 +61,24 @@ public class Game {
     }
 
     /**
-     * Initializes the game's GUI, objects, blocks. balls, and paddle.
+     * Adds blocks to the game.
      */
-    public void initialize() {
-        gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
-        sleeper = new Sleeper();
+    public void addBlocksToGame() {
+        List<Block> boundaryBlocks = new ArrayList<>();
+
+        boundaryBlocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
+        boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
+                Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
+        boundaryBlocks.add(new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
+                Consts.SCREEN_WIDTH, Color.GRAY));
+        boundaryBlocks.add(new Block(0, 0, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
+
+        // boundary blocks are indestructible
+        for (Block boundaryBlock : boundaryBlocks) {
+            boundaryBlock.addToGame(this);
+        }
 
         List<Block> blocks = new ArrayList<>();
-
-        blocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        blocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
-                Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        blocks.add(new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
-                Consts.SCREEN_WIDTH, Color.GRAY));
-        blocks.add(new Block(0, 0, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
-
         Color[] blockColors = new Color[]{Color.GREEN, Color.BLACK, Color.RED, Color.CYAN, Color.BLUE, Color.ORANGE};
 
         for (int row = 0; row < 6; row++) {
@@ -90,7 +93,16 @@ public class Game {
             block.addHitListener(remover);
             block.addToGame(this);
         }
+    }
 
+    /**
+     * Initializes the game's GUI, objects, blocks. balls, and paddle.
+     */
+    public void initialize() {
+        gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
+        sleeper = new Sleeper();
+
+        addBlocksToGame();
         // adding balls
         Ball ball = new Ball(Consts.SCREEN_WIDTH / 2. - 60, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK, environment);
         Ball ball2 = new Ball(Consts.SCREEN_WIDTH / 2. - 30, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
