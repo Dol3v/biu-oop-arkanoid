@@ -23,7 +23,6 @@ public class Game {
     public Game() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
-        this.remover = new BlockRemover(this, 0);
     }
 
     /**
@@ -94,7 +93,7 @@ public class Game {
             block.addHitListener(remover);
             block.addToGame(this);
         }
-        remover.setRemainingBlocks(blocks.size());
+        this.remover = new BlockRemover(this, blocks.size());
     }
 
     /**
@@ -134,7 +133,7 @@ public class Game {
             gui.show(d);
             this.sprites.notifyAllTimePassed();
 
-            if (remover.getRemainingBlocks() == 0) {
+            if (remover.getRemainingBlocks().getValue() == 0) {
                 gui.close();
                 return;
             }
