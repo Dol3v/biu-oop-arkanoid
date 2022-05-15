@@ -85,7 +85,7 @@ public class Block implements Collidable, Sprite, GameObject, HitNotifier {
      *
      * @param game game session
      */
-    void removeFromGame(Game game) {
+    public void removeFromGame(Game game) {
         game.removeCollidable(this);
         game.removeSprite(this);
         removeAllHitListeners();

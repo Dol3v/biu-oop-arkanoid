@@ -89,11 +89,12 @@ public class Game {
                         Consts.BLOCK_LENGTH, blockColors[row]));
             }
         }
+        this.remover = new BlockRemover(this, blocks.size());
+
         for (Block block : blocks) {
             block.addHitListener(remover);
             block.addToGame(this);
         }
-        this.remover = new BlockRemover(this, blocks.size());
     }
 
     /**
