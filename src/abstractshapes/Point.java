@@ -3,7 +3,7 @@ package abstractshapes;
 /**
  * A point in 2-D space.
  */
-public class Point {
+public class Point{
 
     private final double x;
     private final double y;
