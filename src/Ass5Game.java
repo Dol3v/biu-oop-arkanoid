@@ -3,7 +3,7 @@
 /**
  * Assignment: initializes and runs the game.
  */
-public class Ass3Game {
+public class Ass5Game {
 
     /**
      * Initializes and runs the game.
