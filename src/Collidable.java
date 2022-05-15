@@ -16,6 +16,7 @@ public interface Collidable {
     /**
      * Calculates the ball's new velocity after hitting this collidable.
      *
+     * @param hitter the ball that hit the collidable
      * @param collisionPoint point of collision
      * @param currentVelocity ball's velocity
      * @return ball's updated velocity

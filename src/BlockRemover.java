@@ -4,34 +4,31 @@
 public class BlockRemover implements HitListener {
 
     private final Game game;
-    private int remainingBlocks; //TODO: verify why in the world we need a Counter class for this
+    private Counter remainingBlocks;
 
-    public BlockRemover(Game game, int remainingBlocks) {
+    /**
+     * Creates a hit listener that destroys blocks on impact.
+     *
+     * @param game current game session
+     * @param initialBlocks number of initial blocks
+     */
+    public BlockRemover(Game game, int initialBlocks) {
         this.game = game;
-        this.remainingBlocks = remainingBlocks;
+        this.remainingBlocks = new Counter(initialBlocks);
     }
 
     @Override
     public void hitEvent(Block beingHit, Ball hitter) {
         beingHit.removeFromGame(game);
-        remainingBlocks--;
+        remainingBlocks.decrease(1);
     }
 
     /**
-     * Gets the number of remaining blocks in the game.
+     * Get a reference for the counter for the remaining blocks.
      *
-     * @return number of remaining blocks
+     * @return remaining blocks counter
      */
-    public int getRemainingBlocks() {
+    public Counter getRemainingBlocks() {
         return remainingBlocks;
-    }
-
-    /**
-     * Sets the number of remaining blocks in the game.
-     *
-     * @param remainingBlocks new number of remaining blocks
-     */
-    public void setRemainingBlocks(int remainingBlocks) {
-        this.remainingBlocks = remainingBlocks;
     }
 }

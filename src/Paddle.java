@@ -80,7 +80,9 @@ public class Paddle implements Sprite, Collidable, GameObject {
             case 5:
                 shift = 60;
                 break;
-        };
+            default:
+                break;
+        }
         return currentVelocity.rotateBy(shift);
     }
 
@@ -88,6 +90,17 @@ public class Paddle implements Sprite, Collidable, GameObject {
     public void addToGame(Game game) {
         game.addSprite(this);
         game.addCollidable(this);
+    }
+
+    /**
+     * Removes the object from the game.
+     *
+     * @param game game to remove the object from
+     */
+    @Override
+    public void removeFromGame(Game game) {
+        game.removeCollidable(this);
+        game.removeSprite(this);
     }
 
     @Override

@@ -2,7 +2,7 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,9 @@ public class Game {
     private GameEnvironment environment;
     private GUI gui;
     private Sleeper sleeper;
-    private BlockRemover remover;
+    private BlockRemover blockRemover;
+    private BallRemover ballRemover;
+    private Counter availableBalls;
 
     /**
      * Initializes the game's sprites and collidables.
@@ -23,7 +25,8 @@ public class Game {
     public Game() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
-        this.remover = new BlockRemover(this, 0);
+        this.availableBalls = new Counter(0);
+        this.ballRemover = new BallRemover(this);
     }
 
     /**
@@ -68,11 +71,16 @@ public class Game {
     public void addBlocksToGame() {
         List<Block> boundaryBlocks = new ArrayList<>();
 
+        // creating death block
+        Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
+                Consts.SCREEN_WIDTH, Color.GRAY);
+        deathBlock.addHitListener(ballRemover);
+
+        // creating boundary blocks
         boundaryBlocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
                 Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        boundaryBlocks.add(new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
-                Consts.SCREEN_WIDTH, Color.GRAY));
+        boundaryBlocks.add(deathBlock);
         boundaryBlocks.add(new Block(0, 0, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
 
         // boundary blocks are indestructible
@@ -90,11 +98,12 @@ public class Game {
                         Consts.BLOCK_LENGTH, blockColors[row]));
             }
         }
+        this.blockRemover = new BlockRemover(this, blocks.size());
+
         for (Block block : blocks) {
-            block.addHitListener(remover);
+            block.addHitListener(blockRemover);
             block.addToGame(this);
         }
-        remover.setRemainingBlocks(blocks.size());
     }
 
     /**
@@ -109,11 +118,17 @@ public class Game {
         Ball ball = new Ball(Consts.SCREEN_WIDTH / 2. - 60, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK, environment);
         Ball ball2 = new Ball(Consts.SCREEN_WIDTH / 2. - 30, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
                 environment);
+        Ball ball3 = new Ball(Consts.SCREEN_WIDTH / 2. - 90, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
+                environment);
 
         ball.setVelocity(Velocity.fromAngleAndSpeed(50, Consts.BALL_SPEED));
         ball2.setVelocity(Velocity.fromAngleAndSpeed(310, Consts.BALL_SPEED));
+        ball3.setVelocity(Velocity.fromAngleAndSpeed(170, Consts.BALL_SPEED));
         ball.addToGame(this);
         ball2.addToGame(this);
+        ball3.addToGame(this);
+        // registering the number of balls
+        availableBalls.increase(3);
 
         Paddle paddle = new Paddle(gui.getKeyboardSensor());
         paddle.addToGame(this);
@@ -134,7 +149,7 @@ public class Game {
             gui.show(d);
             this.sprites.notifyAllTimePassed();
 
-            if (remover.getRemainingBlocks() == 0) {
+            if (blockRemover.getRemainingBlocks().getValue() == 0 ||  availableBalls.getValue() == 0) {
                 gui.close();
                 return;
             }
@@ -146,5 +161,14 @@ public class Game {
                 sleeper.sleepFor(milliSecondLeftToSleep);
             }
         }
+    }
+
+    /**
+     * Returns a reference to the counter for available balls in the game.
+     *
+     * @return available balls counter
+     */
+    public Counter getAvailableBalls() {
+        return availableBalls;
     }
 }

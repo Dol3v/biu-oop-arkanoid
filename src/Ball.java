@@ -2,7 +2,7 @@ import abstractshapes.Line;
 import abstractshapes.Point;
 import biuoop.DrawSurface;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A circle with some radius, that can move in a given frame.
@@ -123,5 +123,15 @@ public class Ball implements Sprite, GameObject {
     @Override
     public void addToGame(Game game) {
         game.addSprite(this);
+    }
+
+    /**
+     * Removes the object from the game.
+     *
+     * @param game game to remove the object from
+     */
+    @Override
+    public void removeFromGame(Game game) {
+        game.removeSprite(this);
     }
 }
