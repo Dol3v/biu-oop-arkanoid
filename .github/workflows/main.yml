@@ -30,6 +30,7 @@ jobs:
         reporter: 'github-pr-check'
         checkstyle_version: 8.43
         checkstyle_config: biuoop.xml
+        level: error
   
   #builds the project
   build:
