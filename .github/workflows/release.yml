@@ -13,7 +13,6 @@ jobs:
     steps:
       - name: "Create Zip"
         run: |
-          pwd
           ls
           zip -r Ass5.zip src build.xml
 
