@@ -1,0 +1,22 @@
+name: "release"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Create Zip"
+        run: zip -r Ass5.zip src build.xml
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          title: "Assignment Zip"
+          files: Ass5.zip
