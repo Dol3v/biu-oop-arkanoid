@@ -124,4 +124,14 @@ public class Ball implements Sprite, GameObject {
     public void addToGame(Game game) {
         game.addSprite(this);
     }
+
+    /**
+     * Removes the object from the game.
+     *
+     * @param game game to remove the object from
+     */
+    @Override
+    public void removeFromGame(Game game) {
+        game.removeSprite(this);
+    }
 }
