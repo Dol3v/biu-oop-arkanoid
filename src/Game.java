@@ -118,13 +118,17 @@ public class Game {
         Ball ball = new Ball(Consts.SCREEN_WIDTH / 2. - 60, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK, environment);
         Ball ball2 = new Ball(Consts.SCREEN_WIDTH / 2. - 30, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
                 environment);
+        Ball ball3 = new Ball(Consts.SCREEN_WIDTH / 2. - 90, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
+                environment);
 
         ball.setVelocity(Velocity.fromAngleAndSpeed(50, Consts.BALL_SPEED));
         ball2.setVelocity(Velocity.fromAngleAndSpeed(310, Consts.BALL_SPEED));
+        ball3.setVelocity(Velocity.fromAngleAndSpeed(170, Consts.BALL_SPEED));
         ball.addToGame(this);
         ball2.addToGame(this);
-        // increasing the number of balls
-        availableBalls.increase(2);
+        ball3.addToGame(this);
+        // registering the number of balls
+        availableBalls.increase(3);
 
         Paddle paddle = new Paddle(gui.getKeyboardSensor());
         paddle.addToGame(this);
