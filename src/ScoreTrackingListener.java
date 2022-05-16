@@ -15,4 +15,13 @@ public class ScoreTrackingListener implements HitListener {
     public void hitEvent(Block beingHit, Ball hitter) {
         currentScore.increase(SCORE_INCREASE_ON_HIT);
     }
+
+    /**
+     * Gets a reference to the score counter.
+     *
+     * @return reference to the current score counter
+     */
+    public Counter getCurrentScore() {
+        return currentScore;
+    }
 }

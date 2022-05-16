@@ -17,7 +17,10 @@ public class Game {
     private Sleeper sleeper;
     private BlockRemover blockRemover;
     private BallRemover ballRemover;
+    private ScoreTrackingListener scoreTrackingListener;
     private Counter availableBalls;
+
+    private static final int SCORE_INCREASE_ON_LEVEL_COMPLETION = 100;
 
     /**
      * Initializes the game's sprites and collidables.
@@ -27,6 +30,7 @@ public class Game {
         this.environment = new GameEnvironment();
         this.availableBalls = new Counter(0);
         this.ballRemover = new BallRemover(this);
+        this.scoreTrackingListener = new ScoreTrackingListener(new Counter(0));
     }
 
     /**
@@ -74,7 +78,7 @@ public class Game {
         // creating death block
         Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
                 Consts.SCREEN_WIDTH, Color.GRAY);
-        deathBlock.addHitListener(ballRemover);
+//        deathBlock.addHitListener(ballRemover);
 
         // creating boundary blocks
         boundaryBlocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
@@ -102,6 +106,7 @@ public class Game {
 
         for (Block block : blocks) {
             block.addHitListener(blockRemover);
+            block.addHitListener(scoreTrackingListener);
             block.addToGame(this);
         }
     }
@@ -149,7 +154,13 @@ public class Game {
             gui.show(d);
             this.sprites.notifyAllTimePassed();
 
-            if (blockRemover.getRemainingBlocks().getValue() == 0 ||  availableBalls.getValue() == 0) {
+            if (availableBalls.getValue() == 0) {
+                gui.close();
+                return;
+            }
+
+            if (blockRemover.getRemainingBlocks().getValue() == 0) {
+                scoreTrackingListener.getCurrentScore().increase(SCORE_INCREASE_ON_LEVEL_COMPLETION);
                 gui.close();
                 return;
             }
