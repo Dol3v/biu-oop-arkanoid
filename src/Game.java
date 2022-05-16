@@ -78,14 +78,16 @@ public class Game {
         // creating death block
         Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
                 Consts.SCREEN_WIDTH, Color.GRAY);
-//        deathBlock.addHitListener(ballRemover);
+        deathBlock.addHitListener(ballRemover);
 
         // creating boundary blocks
-        boundaryBlocks.add(new Block(0, 0, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, 0, Consts.SCREEN_HEIGHT,
+        boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT, Consts.SCREEN_HEIGHT,
                 Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
+        boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, Consts.SCORE_INDICATOR_HEIGHT,
+                Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         boundaryBlocks.add(deathBlock);
-        boundaryBlocks.add(new Block(0, 0, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
+        boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT,
+                Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
 
         // boundary blocks are indestructible
         for (Block boundaryBlock : boundaryBlocks) {
@@ -138,6 +140,8 @@ public class Game {
         Paddle paddle = new Paddle(gui.getKeyboardSensor());
         paddle.addToGame(this);
 
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreTrackingListener.getCurrentScore());
+        addSprite(scoreIndicator);
     }
 
     /**

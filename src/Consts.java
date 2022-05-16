@@ -30,4 +30,10 @@ public class Consts {
     // block
     public static final double BLOCK_LENGTH = 50;
     public static final double BLOCK_STARTING_HEIGHT = 400;
+
+    // score indicator
+    public static final int SCORE_INDICATOR_HEIGHT = 20;
+    public static final int TEXT_START_X = (int) BOUNDARY_BLOCK_SIZE;
+    public static final int TEXT_START_Y = 12;
+    public static final int FONT_SIZE = 14;
 }
