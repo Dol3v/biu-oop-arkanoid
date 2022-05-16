@@ -11,12 +11,14 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+   
       - name: "Create Zip"
-        run: |
-          ls | echo
-          zip -r Ass5.zip src build.xml
+        run: zip -r Ass5.zip src build.xml
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: "Create Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
