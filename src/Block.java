@@ -111,5 +111,8 @@ public class Block implements Collidable, Sprite, GameObject, HitNotifier {
         for (HitListener listener : listenersCopy) {
             listener.hitEvent(this, hitter);
         }
+
+        hitListeners.clear();
+        hitListeners.addAll(listenersCopy);
     }
 }
