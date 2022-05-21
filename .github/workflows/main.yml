@@ -27,7 +27,7 @@ jobs:
       uses: nikitasavinov/checkstyle-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        reporter: 'github-pr-check'
+        reporter: 'github-check'
         checkstyle_version: 8.43
         checkstyle_config: biuoop.xml
         level: error
