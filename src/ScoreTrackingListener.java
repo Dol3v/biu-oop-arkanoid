@@ -5,8 +5,13 @@ public class ScoreTrackingListener implements HitListener {
 
     private Counter currentScore;
 
-    private final static int SCORE_INCREASE_ON_HIT = 5;
+    private static final int SCORE_INCREASE_ON_HIT = 5;
 
+    /**
+     * Creates a score-tracking listener.
+     *
+     * @param currentScore reference to the current score counter
+     */
     public ScoreTrackingListener(Counter currentScore) {
         this.currentScore = currentScore;
     }
