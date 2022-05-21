@@ -78,7 +78,7 @@ public class Game {
         // creating death block
         Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
                 Consts.SCREEN_WIDTH, Color.GRAY);
-        deathBlock.addHitListener(ballRemover);
+//        deathBlock.addHitListener(ballRemover);
 
         // creating boundary blocks
         boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT, Consts.SCREEN_HEIGHT,
@@ -150,6 +150,7 @@ public class Game {
     public void run() {
         int framesPerSecond = 60;
         int millisecondsPerFrame = 1000 / framesPerSecond;
+        boolean shouldEndGame = false;
         while (true) {
             long startTime = System.currentTimeMillis(); // timing
 
@@ -163,10 +164,15 @@ public class Game {
                 return;
             }
 
-            if (blockRemover.getRemainingBlocks().getValue() == 0) {
-                scoreTrackingListener.getCurrentScore().increase(SCORE_INCREASE_ON_LEVEL_COMPLETION);
+            if (shouldEndGame) {
+                sleeper.sleepFor(1000);
                 gui.close();
                 return;
+            }
+
+            if (blockRemover.getRemainingBlocks().getValue() == 0) {
+                scoreTrackingListener.getCurrentScore().increase(SCORE_INCREASE_ON_LEVEL_COMPLETION);
+                shouldEndGame = true;
             }
 
             // timing
