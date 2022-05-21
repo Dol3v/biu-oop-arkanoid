@@ -23,4 +23,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           title: "Assignment Zip"
-          files: Ass5.zip
+          files: ass5.zip
