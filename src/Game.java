@@ -78,7 +78,7 @@ public class Game {
         // creating death block
         Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
                 Consts.SCREEN_WIDTH, Color.GRAY);
-//        deathBlock.addHitListener(ballRemover);
+        deathBlock.addHitListener(ballRemover);
 
         // creating boundary blocks
         boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT, Consts.SCREEN_HEIGHT,
