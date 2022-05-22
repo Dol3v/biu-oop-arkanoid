@@ -59,7 +59,9 @@ public class Paddle implements Sprite, Collidable, GameObject {
     @Override
     public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         // if the ball hits the paddle's side, reflect it backwards
-        if (collisionPoint.getY() < paddleShape.getUpperLeft().getY()) {
+        if (collisionPoint.getY() <= paddleShape.getUpperLeft().getY() ||
+            collisionPoint.getX() < paddleShape.getUpperLeft().getX() ||
+            collisionPoint.getX() > paddleShape.getUpperRight().getX()) {
             return new Velocity(-1 * currentVelocity.getDx(), -1 *  currentVelocity.getDy());
         }
         int region = regionOf(collisionPoint.getX());

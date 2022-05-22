@@ -10,7 +10,7 @@ public class Line {
     private final double x2;
     private final double y2;
 
-    private static final double NUDGE_OFFSET = 1.5;
+    private static final double NUDGE_OFFSET = 1.7;
 
     /**
      * Creates a line segment.
