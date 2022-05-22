@@ -25,14 +25,24 @@ public class Paddle implements Sprite, Collidable, GameObject {
      * Moves the paddle's position to the left.
      */
     public void moveLeft() {
-        paddleShape.setUpperLeft(paddleShape.getUpperLeft().addPoint(-Consts.PADDLE_SPEED, 0));
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-Consts.PADDLE_SPEED, 0);
+        // making sure the paddle can't go further than the screen boundaries
+        if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_SIZE) {
+            return;
+        }
+        paddleShape.setUpperLeft(newUpperLeft);
     }
 
     /**
      * Moves the paddle's position to the right.
      */
     public void moveRight() {
-        paddleShape.setUpperLeft(paddleShape.getUpperLeft().addPoint(Consts.PADDLE_SPEED, 0));
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(Consts.PADDLE_SPEED, 0);
+        // making sure the paddle can't go further than the screen boundaries
+        if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE) {
+            return;
+        }
+        paddleShape.setUpperLeft(newUpperLeft);
     }
 
     /**
@@ -59,7 +69,9 @@ public class Paddle implements Sprite, Collidable, GameObject {
     @Override
     public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         // if the ball hits the paddle's side, reflect it backwards
-        if (collisionPoint.getY() < paddleShape.getUpperLeft().getY()) {
+        if (collisionPoint.getY() <= paddleShape.getUpperLeft().getY()
+            || collisionPoint.getX() < paddleShape.getUpperLeft().getX()
+            || collisionPoint.getX() > paddleShape.getUpperRight().getX()) {
             return new Velocity(-1 * currentVelocity.getDx(), -1 *  currentVelocity.getDy());
         }
         int region = regionOf(collisionPoint.getX());
