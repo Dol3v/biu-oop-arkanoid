@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
    
       - name: "Create Zip"
-        run: zip -r ass5.zip src build.xml
+        run: zip -r ass6.zip src build.xml
 
       - name: "Create Release"
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -23,4 +23,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           title: "Assignment Zip"
-          files: ass5.zip
+          files: ass6.zip
