@@ -9,16 +9,19 @@ import java.util.List;
 /**
  * Runs the Game: two balls bouncing in space, which can also bounce off a moving paddle.
  */
-public class Game {
+public class Game implements Animation {
 
     private SpriteCollection sprites;
     private GameEnvironment environment;
     private GUI gui;
-    private Sleeper sleeper;
     private BlockRemover blockRemover;
     private BallRemover ballRemover;
     private ScoreTrackingListener scoreTrackingListener;
     private Counter availableBalls;
+    private AnimationRunner runner;
+    private boolean running;
+
+    private static final int FRAMES_PER_SECOND = 60;
 
     private static final int SCORE_INCREASE_ON_LEVEL_COMPLETION = 100;
 
@@ -31,6 +34,7 @@ public class Game {
         this.availableBalls = new Counter(0);
         this.ballRemover = new BallRemover(this);
         this.scoreTrackingListener = new ScoreTrackingListener(new Counter(0));
+        this.running = true;
     }
 
     /**
@@ -118,7 +122,7 @@ public class Game {
      */
     public void initialize() {
         gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
-        sleeper = new Sleeper();
+        runner = new AnimationRunner(gui, FRAMES_PER_SECOND);
 
         addBlocksToGame();
         // adding balls
@@ -148,40 +152,7 @@ public class Game {
      * Runs the game.
      */
     public void run() {
-        int framesPerSecond = 60;
-        int millisecondsPerFrame = 1000 / framesPerSecond;
-        boolean shouldEndGame = false;
-        while (true) {
-            long startTime = System.currentTimeMillis(); // timing
-
-            DrawSurface d = gui.getDrawSurface();
-            this.sprites.drawAllOn(d);
-            gui.show(d);
-            this.sprites.notifyAllTimePassed();
-
-            if (availableBalls.getValue() == 0) {
-                gui.close();
-                return;
-            }
-
-            if (shouldEndGame) {
-                sleeper.sleepFor(1000);
-                gui.close();
-                return;
-            }
-
-            if (blockRemover.getRemainingBlocks().getValue() == 0) {
-                scoreTrackingListener.getCurrentScore().increase(SCORE_INCREASE_ON_LEVEL_COMPLETION);
-                shouldEndGame = true;
-            }
-
-            // timing
-            long usedTime = System.currentTimeMillis() - startTime;
-            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-            if (milliSecondLeftToSleep > 0) {
-                sleeper.sleepFor(milliSecondLeftToSleep);
-            }
-        }
+        runner.run(this);
     }
 
     /**
@@ -191,5 +162,37 @@ public class Game {
      */
     public Counter getAvailableBalls() {
         return availableBalls;
+    }
+
+    /**
+     * Executes one frame of the animation.
+     *
+     * @param d surface to draw the animation on
+     */
+    @Override
+    public void doOneFrame(DrawSurface d) {
+        sprites.drawAllOn(d);
+        sprites.notifyAllTimePassed();
+
+        if (blockRemover.getRemainingBlocks().getValue() == 0) {
+            scoreTrackingListener.getCurrentScore().increase(SCORE_INCREASE_ON_LEVEL_COMPLETION);
+            running = false;
+            return;
+        }
+
+        if (availableBalls.getValue() == 0) {
+            running = false;
+            return;
+        }
+    }
+
+    /**
+     * Checks if the animation should stop.
+     *
+     * @return whether the animation should stop
+     */
+    @Override
+    public boolean shouldStop() {
+        return !running;
     }
 }
