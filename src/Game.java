@@ -124,7 +124,7 @@ public class Game implements Animation {
     public void initialize() {
         gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
         keyboardSensor = gui.getKeyboardSensor();
-        runner = new AnimationRunner(gui, FRAMES_PER_SECOND);
+        runner = new AnimationRunner(gui);
 
         addBlocksToGame();
         // adding balls
@@ -154,6 +154,7 @@ public class Game implements Animation {
      * Runs the game.
      */
     public void run() {
+        runner.run(new CountdownAnimation(2, 3, sprites));
         runner.run(this);
         gui.close();
     }
@@ -201,5 +202,15 @@ public class Game implements Animation {
     @Override
     public boolean shouldStop() {
         return !running;
+    }
+
+    /**
+     * Returns the FPS rate the animation should run at.
+     *
+     * @return the animation's FPS rate
+     */
+    @Override
+    public double getFramesPerSecond() {
+        return FRAMES_PER_SECOND;
     }
 }
