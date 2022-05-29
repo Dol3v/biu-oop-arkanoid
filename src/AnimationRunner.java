@@ -32,6 +32,5 @@ public class AnimationRunner {
                 sleeper.sleepFor(milliSecondsToSleep);
             }
         }
-        gui.close();
     }
 }
