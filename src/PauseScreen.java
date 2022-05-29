@@ -31,4 +31,14 @@ public class PauseScreen implements Animation {
     public boolean shouldStop() {
         return shouldStop;
     }
+
+    /**
+     * Returns the FPS rate the animation should run at.
+     *
+     * @return the animation's FPS rate
+     */
+    @Override
+    public double getFramesPerSecond() {
+        return 60;
+    }
 }

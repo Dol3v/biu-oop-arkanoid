@@ -8,17 +8,15 @@ import biuoop.Sleeper;
 public class AnimationRunner {
 
     private GUI gui;
-    private int framesPerSecond;
     private Sleeper sleeper;
 
-    public AnimationRunner(GUI gui, int framesPerSecond) {
+    public AnimationRunner(GUI gui) {
         this.gui = gui;
-        this.framesPerSecond = framesPerSecond;
         this.sleeper = new Sleeper();
     }
 
     public void run(Animation animation) {
-        int milliSecondsPerFrame = 1000 / framesPerSecond;
+        int milliSecondsPerFrame = (int) (1000 / animation.getFramesPerSecond());
         while (!animation.shouldStop()) {
             long startTime = System.currentTimeMillis();
             DrawSurface d = gui.getDrawSurface();

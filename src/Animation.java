@@ -17,4 +17,11 @@ public interface Animation {
      * @return whether the animation should stop
      */
     boolean shouldStop();
+
+    /**
+     * Returns the FPS rate the animation should run at.
+     *
+     * @return the animation's FPS rate
+     */
+    double getFramesPerSecond();
 }
