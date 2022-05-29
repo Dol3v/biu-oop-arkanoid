@@ -1,6 +1,6 @@
 import biuoop.DrawSurface;
 import biuoop.GUI;
-import biuoop.Sleeper;
+import biuoop.KeyboardSensor;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class Game implements Animation {
     private Counter availableBalls;
     private AnimationRunner runner;
     private boolean running;
+    private KeyboardSensor keyboardSensor;
 
     private static final int FRAMES_PER_SECOND = 60;
 
@@ -76,7 +77,7 @@ public class Game implements Animation {
     /**
      * Adds blocks to the game.
      */
-    public void addBlocksToGame() {
+    private void addBlocksToGame() {
         List<Block> boundaryBlocks = new ArrayList<>();
 
         // creating death block
@@ -122,6 +123,7 @@ public class Game implements Animation {
      */
     public void initialize() {
         gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
+        keyboardSensor = gui.getKeyboardSensor();
         runner = new AnimationRunner(gui, FRAMES_PER_SECOND);
 
         addBlocksToGame();
@@ -141,7 +143,7 @@ public class Game implements Animation {
         // registering the number of balls
         availableBalls.increase(3);
 
-        Paddle paddle = new Paddle(gui.getKeyboardSensor());
+        Paddle paddle = new Paddle(keyboardSensor);
         paddle.addToGame(this);
 
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreTrackingListener.getCurrentScore());
@@ -153,6 +155,7 @@ public class Game implements Animation {
      */
     public void run() {
         runner.run(this);
+        gui.close();
     }
 
     /**
@@ -183,6 +186,10 @@ public class Game implements Animation {
         if (availableBalls.getValue() == 0) {
             running = false;
             return;
+        }
+
+        if (keyboardSensor.isPressed("p")) {
+            runner.run(new PauseScreen(keyboardSensor));
         }
     }
 
