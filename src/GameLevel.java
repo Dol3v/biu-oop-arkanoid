@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Runs the Game: two balls bouncing in space, which can also bounce off a moving paddle.
  */
-public class Game implements Animation {
+public class GameLevel implements Animation {
 
     private SpriteCollection sprites;
     private GameEnvironment environment;
@@ -29,7 +29,7 @@ public class Game implements Animation {
     /**
      * Initializes the game's sprites and collidables.
      */
-    public Game() {
+    public GameLevel() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.availableBalls = new Counter(0);

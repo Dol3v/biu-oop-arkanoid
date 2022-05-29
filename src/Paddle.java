@@ -99,20 +99,20 @@ public class Paddle implements Sprite, Collidable, GameObject {
     }
 
     @Override
-    public void addToGame(Game game) {
-        game.addSprite(this);
-        game.addCollidable(this);
+    public void addToGame(GameLevel gameLevel) {
+        gameLevel.addSprite(this);
+        gameLevel.addCollidable(this);
     }
 
     /**
      * Removes the object from the game.
      *
-     * @param game game to remove the object from
+     * @param gameLevel game to remove the object from
      */
     @Override
-    public void removeFromGame(Game game) {
-        game.removeCollidable(this);
-        game.removeSprite(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        gameLevel.removeCollidable(this);
+        gameLevel.removeSprite(this);
     }
 
     @Override

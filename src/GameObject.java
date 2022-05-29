@@ -6,14 +6,14 @@ public interface GameObject {
     /**
      * Adds the object to the game.
      *
-     * @param game game to add the object to
+     * @param gameLevel game to add the object to
      */
-    void addToGame(Game game);
+    void addToGame(GameLevel gameLevel);
 
     /**
      * Removes the object from the game.
      *
-     * @param game game to remove the object from
+     * @param gameLevel game to remove the object from
      */
-    void removeFromGame(Game game);
+    void removeFromGame(GameLevel gameLevel);
 }
