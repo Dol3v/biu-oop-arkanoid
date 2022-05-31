@@ -1,3 +1,5 @@
+package game;
+
 /**
  * An object that appears in the game.
  */

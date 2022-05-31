@@ -1,5 +1,8 @@
+package objects;
+
 import abstractshapes.Point;
 import abstractshapes.Rectangle;
+import utils.Velocity;
 
 /**
  * An object the ball can collide with.

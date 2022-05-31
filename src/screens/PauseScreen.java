@@ -1,5 +1,8 @@
+package screens;
+
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
+import game.Animation;
 
 public class PauseScreen implements Animation {
 

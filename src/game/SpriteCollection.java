@@ -1,4 +1,7 @@
+package game;
+
 import biuoop.DrawSurface;
+import objects.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;

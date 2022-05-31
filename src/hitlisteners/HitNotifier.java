@@ -1,3 +1,7 @@
+package hitlisteners;
+
+import hitlisteners.HitListener;
+
 /**
  * Notifies listeners when an object was hit.
  *

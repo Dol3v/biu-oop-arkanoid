@@ -1,3 +1,11 @@
+package hitlisteners;
+
+
+import game.GameLevel;
+import objects.Ball;
+import objects.Block;
+import utils.Counter;
+
 /**
  * Removes a block from the game on hit.
  */

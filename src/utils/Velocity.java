@@ -1,3 +1,5 @@
+package utils;
+
 import abstractshapes.Point;
 
 /**
@@ -27,11 +29,11 @@ public class Velocity {
     }
 
     /**
-     * Creates a Velocity object from the object's angle and speed.
+     * Creates a utils.Velocity object from the object's angle and speed.
      *
      * @param angle angle the object is moving at, in degrees
      * @param speed speed the object is moving at
-     * @return corresponding Velocity object
+     * @return corresponding utils.Velocity object
      */
     public static Velocity fromAngleAndSpeed(double angle, double speed) {
         double dx = speed * Math.cos(angle * Math.PI / 180);
@@ -40,7 +42,7 @@ public class Velocity {
     }
 
     /**
-     * Returns a new Velocity with the same speed, and the direction shifted clockwise by a set number of degrees.
+     * Returns a new utils.Velocity with the same speed, and the direction shifted clockwise by a set number of degrees.
      *
      * @param degrees degrees to shift
      * @return shifted velocity

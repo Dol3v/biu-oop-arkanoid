@@ -1,6 +1,14 @@
+package objects;
+
 import abstractshapes.Point;
 import abstractshapes.Rectangle;
 import biuoop.DrawSurface;
+import game.GameLevel;
+import game.GameObject;
+import hitlisteners.HitListener;
+import hitlisteners.HitNotifier;
+import utils.Utils;
+import utils.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;

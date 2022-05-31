@@ -1,4 +1,8 @@
+package screens;
+
 import biuoop.DrawSurface;
+import game.Animation;
+import game.SpriteCollection;
 
 /**
  * A countdown animation.

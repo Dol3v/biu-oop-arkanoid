@@ -1,3 +1,9 @@
+package hitlisteners;
+
+import game.GameLevel;
+import objects.Ball;
+import objects.Block;
+
 /**
  * A hit listener that removes balls when hit.
  */

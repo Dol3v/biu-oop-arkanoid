@@ -1,6 +1,13 @@
+package objects;
+
 import abstractshapes.Line;
 import abstractshapes.Point;
 import biuoop.DrawSurface;
+import game.CollisionInfo;
+import game.GameEnvironment;
+import game.GameLevel;
+import game.GameObject;
+import utils.Velocity;
 
 import java.awt.Color;
 
@@ -21,7 +28,7 @@ public class Ball implements Sprite, GameObject {
      * @param center ball's center
      * @param r      ball's radius
      * @param color  ball's color
-     * @param environment GameEnvironment the ball is in
+     * @param environment game.GameEnvironment the ball is in
      */
     public Ball(abstractshapes.Point center, int r, Color color, GameEnvironment environment) {
         this.center = center;
@@ -38,7 +45,7 @@ public class Ball implements Sprite, GameObject {
      * @param y     center's y coordinate
      * @param r     radius
      * @param color color
-     * @param environment GameEnvironment the ball is in
+     * @param environment game.GameEnvironment the ball is in
      */
     public Ball(double x, double y, int r, Color color, GameEnvironment environment) {
         this(new Point((int) x, (int) y), r, color, environment);
@@ -104,7 +111,7 @@ public class Ball implements Sprite, GameObject {
     /**
      * Setter for velocity.
      *
-     * @param velocity Ball's new velocity.
+     * @param velocity objects.Ball's new velocity.
      */
     public void setVelocity(Velocity velocity) {
         this.velocity = velocity;
@@ -113,8 +120,8 @@ public class Ball implements Sprite, GameObject {
     /**
      * Setter for velocity.
      *
-     * @param dx Velocity's dx
-     * @param dy Velocity's dy
+     * @param dx utils.Velocity's dx
+     * @param dy utils.Velocity's dy
      */
     public void setVelocity(double dx, double dy) {
         setVelocity(new Velocity(dx, dy));

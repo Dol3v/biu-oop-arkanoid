@@ -1,4 +1,7 @@
+package game;
+
 import abstractshapes.Point;
+import objects.Collidable;
 
 /**
  * Stores info about a collision.

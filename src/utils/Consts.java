@@ -1,9 +1,11 @@
+package utils;
+
 import abstractshapes.Point;
 
 import java.awt.Color;
 
 /**
- * Consts that are used throughout the game.
+ * utils.Consts that are used throughout the game.
  */
 public class Consts {
 

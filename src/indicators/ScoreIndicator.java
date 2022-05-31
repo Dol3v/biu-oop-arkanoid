@@ -1,4 +1,9 @@
+package indicators;
+
 import biuoop.DrawSurface;
+import objects.Sprite;
+import utils.Consts;
+import utils.Counter;
 
 import java.awt.Color;
 

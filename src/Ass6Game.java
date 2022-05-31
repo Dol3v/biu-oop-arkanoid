@@ -1,9 +1,11 @@
 // Dolev Dabush, id: 215372939
 
+import game.GameLevel;
+
 /**
  * Assignment: initializes and runs the game.
  */
-public class Ass5Game {
+public class Ass6Game {
 
     /**
      * Initializes and runs the game.

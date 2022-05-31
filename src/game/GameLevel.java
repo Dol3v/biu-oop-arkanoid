@@ -1,6 +1,18 @@
+package game;
+
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
+import hitlisteners.BallRemover;
+import hitlisteners.BlockRemover;
+import hitlisteners.ScoreTrackingListener;
+import indicators.ScoreIndicator;
+import objects.*;
+import screens.CountdownAnimation;
+import screens.PauseScreen;
+import utils.Consts;
+import utils.Counter;
+import utils.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;

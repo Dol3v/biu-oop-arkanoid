@@ -1,7 +1,15 @@
+package objects;
+
 import abstractshapes.Point;
 import abstractshapes.Rectangle;
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
+import game.GameLevel;
+import game.GameObject;
+import objects.Ball;
+import objects.Collidable;
+import utils.Consts;
+import utils.Velocity;
 
 /**
  * User controlled, moving collidable paddle.

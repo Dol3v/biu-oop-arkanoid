@@ -1,3 +1,10 @@
+package hitlisteners;
+
+import hitlisteners.HitListener;
+import objects.Ball;
+import objects.Block;
+import utils.Counter;
+
 /**
  * Increases the score of a player on hits.
  */
