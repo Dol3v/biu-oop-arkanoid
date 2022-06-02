@@ -1,5 +1,6 @@
 package levels;
 
+import abstractshapes.Point;
 import objects.Block;
 import objects.Sprite;
 import utils.Velocity;
@@ -20,6 +21,7 @@ public interface LevelInformation {
     // The initial velocity of each ball
     // Note that initialBallVelocities().size() == numberOfBalls()
     List<Velocity> initialBallVelocities();
+
     int paddleSpeed();
     int paddleWidth();
     // the level name will be displayed at the top of the screen.

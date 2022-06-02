@@ -1,18 +1,18 @@
 package game;
 
+import abstractshapes.Rectangle;
 import biuoop.DrawSurface;
-import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import hitlisteners.BallRemover;
 import hitlisteners.BlockRemover;
 import hitlisteners.ScoreTrackingListener;
 import indicators.ScoreIndicator;
+import levels.LevelInformation;
 import objects.*;
 import screens.CountdownAnimation;
 import screens.PauseScreen;
 import utils.Consts;
 import utils.Counter;
-import utils.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ public class GameLevel implements Animation {
 
     private SpriteCollection sprites;
     private GameEnvironment environment;
-    private GUI gui;
     private BlockRemover blockRemover;
     private BallRemover ballRemover;
     private ScoreTrackingListener scoreTrackingListener;
@@ -33,21 +32,30 @@ public class GameLevel implements Animation {
     private AnimationRunner runner;
     private boolean running;
     private KeyboardSensor keyboardSensor;
+    private LevelInformation currentLevel;
 
     private static final int FRAMES_PER_SECOND = 60;
 
     private static final int SCORE_INCREASE_ON_LEVEL_COMPLETION = 100;
+    public static final int BALL_RADIUS = 10;
 
     /**
      * Initializes the game's sprites and collidables.
      */
-    public GameLevel() {
+    public GameLevel(LevelInformation levelInformation, KeyboardSensor sensor, AnimationRunner runner,
+                     Counter currentScore) {
+        this.currentLevel = levelInformation;
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
-        this.availableBalls = new Counter(0);
-        this.ballRemover = new BallRemover(this);
-        this.scoreTrackingListener = new ScoreTrackingListener(new Counter(0));
+        this.availableBalls = new Counter(levelInformation.numberOfBalls());
+        this.keyboardSensor = sensor;
+        this.runner = runner;
         this.running = true;
+
+        // listeners
+        this.ballRemover = new BallRemover(this);
+        this.blockRemover = new BlockRemover(this, levelInformation.numberOfBlocksToRemove());
+        this.scoreTrackingListener = new ScoreTrackingListener(currentScore);
     }
 
     /**
@@ -86,18 +94,13 @@ public class GameLevel implements Animation {
         sprites.removeSprite(s);
     }
 
-    /**
-     * Adds blocks to the game.
-     */
-    private void addBlocksToGame() {
-        List<Block> boundaryBlocks = new ArrayList<>();
-
+    private void addBoundaryBlocks() {
         // creating death block
         Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
                 Consts.SCREEN_WIDTH, Color.GRAY);
         deathBlock.addHitListener(ballRemover);
 
-        // creating boundary blocks
+        List<Block> boundaryBlocks = new ArrayList<>();
         boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT, Consts.SCREEN_HEIGHT,
                 Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, Consts.SCORE_INDICATOR_HEIGHT,
@@ -106,60 +109,47 @@ public class GameLevel implements Animation {
         boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT,
                 Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
 
-        // boundary blocks are indestructible
         for (Block boundaryBlock : boundaryBlocks) {
             boundaryBlock.addToGame(this);
-        }
-
-        List<Block> blocks = new ArrayList<>();
-        Color[] blockColors = new Color[]{Color.GREEN, Color.BLACK, Color.RED, Color.CYAN, Color.BLUE, Color.ORANGE};
-
-        for (int row = 0; row < 6; row++) {
-            for (int col = 1; col < 5 + row + 1; col++) {
-                blocks.add(new Block(Consts.SCREEN_WIDTH - col * Consts.BLOCK_LENGTH - Consts.BOUNDARY_BLOCK_SIZE,
-                        Consts.BLOCK_STARTING_HEIGHT - Consts.BLOCK_LENGTH * row, Consts.BLOCK_LENGTH,
-                        Consts.BLOCK_LENGTH, blockColors[row]));
-            }
-        }
-        this.blockRemover = new BlockRemover(this, blocks.size());
-
-        for (Block block : blocks) {
-            block.addHitListener(blockRemover);
-            block.addHitListener(scoreTrackingListener);
-            block.addToGame(this);
         }
     }
 
     /**
-     * Initializes the game's GUI, objects, blocks. balls, and paddle.
+     * Initializes the game's objects, blocks. balls, and paddle.
      */
     public void initialize() {
-        gui = new GUI("title", Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT);
-        keyboardSensor = gui.getKeyboardSensor();
-        runner = new AnimationRunner(gui);
+        // adding blocks
+        for (Block block : currentLevel.blocks()) {
+            block.addToGame(this);
+            block.addHitListener(blockRemover);
+        }
+        addBoundaryBlocks();
 
-        addBlocksToGame();
-        // adding balls
-        Ball ball = new Ball(Consts.SCREEN_WIDTH / 2. - 60, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK, environment);
-        Ball ball2 = new Ball(Consts.SCREEN_WIDTH / 2. - 30, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
-                environment);
-        Ball ball3 = new Ball(Consts.SCREEN_WIDTH / 2. - 90, Consts.SCREEN_HEIGHT / 2., 10, Color.BLACK,
-                environment);
-
-        ball.setVelocity(Velocity.fromAngleAndSpeed(50, Consts.BALL_SPEED));
-        ball2.setVelocity(Velocity.fromAngleAndSpeed(310, Consts.BALL_SPEED));
-        ball3.setVelocity(Velocity.fromAngleAndSpeed(170, Consts.BALL_SPEED));
-        ball.addToGame(this);
-        ball2.addToGame(this);
-        ball3.addToGame(this);
-        // registering the number of balls
-        availableBalls.increase(3);
-
-        Paddle paddle = new Paddle(keyboardSensor);
+        // adding paddle
+        Paddle paddle = new Paddle(keyboardSensor,
+                new Rectangle(Consts.SCREEN_WIDTH / 2. - currentLevel.paddleWidth() / 2.,
+                        Consts.PADDLE_LOCATION_HEIGHT,
+                        Consts.PADDLE_HEIGHT, currentLevel.paddleWidth()),
+                currentLevel.paddleSpeed());
         paddle.addToGame(this);
 
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreTrackingListener.getCurrentScore());
         addSprite(scoreIndicator);
+    }
+
+    public void createBallsOnTopOfPaddle() {
+        int paddleLeft = (Consts.SCREEN_WIDTH - currentLevel.paddleWidth()) / 2;
+        int xIncrement = currentLevel.paddleWidth() / (currentLevel.numberOfBalls() + 1);
+
+        for (int i = 0; i < currentLevel.numberOfBalls(); i++) {
+            Ball ball = new Ball(paddleLeft + (i + 1) * xIncrement,
+                    Consts.PADDLE_LOCATION_HEIGHT - BALL_RADIUS - Consts.BALL_MARGIN,
+                    BALL_RADIUS,
+                    Color.BLACK,
+                    environment);
+            ball.setVelocity(currentLevel.initialBallVelocities().get(i));
+            ball.addToGame(this);
+        }
     }
 
     /**
@@ -167,8 +157,8 @@ public class GameLevel implements Animation {
      */
     public void run() {
         runner.run(new CountdownAnimation(2, 3, sprites));
+        createBallsOnTopOfPaddle();
         runner.run(this);
-        gui.close();
     }
 
     /**
