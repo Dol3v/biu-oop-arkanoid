@@ -24,8 +24,8 @@ public class FinalFourLevel implements LevelInformation {
     private static final int BLOCKS_PER_ROW = 15;
     private static final int BLOCK_STARTING_Y = 100;
     private static final int BLOCK_HEIGHT = 30;
-    private static final int PADDLE_SPEED = 20;
-    private static final int PADDLE_WIDTH = 90;
+    private static final int PADDLE_SPEED = 9;
+    private static final int PADDLE_WIDTH = 110;
 
     public FinalFourLevel() {
         this.ballCenters = new ArrayList<>();
