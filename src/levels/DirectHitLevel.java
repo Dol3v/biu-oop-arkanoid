@@ -20,6 +20,9 @@ public class DirectHitLevel implements LevelInformation {
     private List<Block> blocks;
     private static final int PADDLE_SPEED = 5;
 
+    private static final int BLOCK_HEIGHT = 20;
+    private static final int BLOCK_WIDTH = 20;
+
     /**
      * Initializes the level.
      */
@@ -28,8 +31,9 @@ public class DirectHitLevel implements LevelInformation {
         this.ballVelocities.add(Velocity.fromAngleAndSpeed(270, Consts.BALL_SPEED));
 
         this.blocks = new ArrayList<>();
-        this.blocks.add(new Block(Consts.SCREEN_WIDTH / 2., Consts.SCREEN_HEIGHT  / 3.,
-                20, 20, Color.BLACK));
+        this.blocks.add(new Block((Consts.SCREEN_WIDTH - BLOCK_WIDTH) / 2.,
+                (Consts.SCREEN_HEIGHT - BLOCK_HEIGHT) / 2.,
+                BLOCK_HEIGHT, BLOCK_WIDTH, Color.BLACK));
 
         this.background = new DirectHitBackground();
     }

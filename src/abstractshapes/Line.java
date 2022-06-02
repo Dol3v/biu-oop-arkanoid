@@ -153,8 +153,16 @@ public class Line {
     public Point intersectionWith(Line other) {
         double slope = getSlope();
         double otherSlope = other.getSlope();
-        // if the lines are parallel, there's no intersection point
         if (slope == otherSlope) {
+            // if the lines coincide, try to find the collision point between them
+            if (substitute(other.x1) == other.y1) {
+                if (x2 < other.x1) {
+                    return null;
+                }
+                double intersectionX = Math.max(x2, other.x1);
+                return new Point(intersectionX, substitute(intersectionX));
+            }
+            // if the lines are parallel, there's no intersection point
             return null;
         }
         double intersectionX, intersectionY;

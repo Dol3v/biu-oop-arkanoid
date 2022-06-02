@@ -44,7 +44,7 @@ public class GameEnvironment {
      * the trajectory, returns null.
      *
      * @param trajectory line representing some point's trajectory
-     * @return the info of the collision with the collidable on the trajectory that's closest to its start. If dosen't
+     * @return the info of the collision with the collidable on the trajectory that's closest to its start. If doesn't
      * exist, returns null.
      */
     public CollisionInfo getClosestCollision(Line trajectory) {
