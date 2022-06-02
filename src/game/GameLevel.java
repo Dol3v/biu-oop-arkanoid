@@ -181,7 +181,7 @@ public class GameLevel implements Animation {
 
         Indicator<String> levelNameIndicator = new Indicator<>(() -> currentLevel.levelName(),
                 Consts.SCREEN_WIDTH / 2,
-                "Name");
+                "Level Name");
         addSprite(levelNameIndicator);
     }
 
