@@ -21,7 +21,7 @@ public class Consts {
 
 
     // ball
-    public static final double BALL_SPEED = 11.;
+    public static final double BALL_SPEED = 7;
     public static final int BALL_MARGIN = 2;
     public static final int BALL_RADIUS = 10;
 

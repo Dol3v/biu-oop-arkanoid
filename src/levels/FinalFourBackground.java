@@ -19,7 +19,7 @@ public class FinalFourBackground implements Sprite {
      * Initializes the background.
      */
     public FinalFourBackground() {
-        this.color = Color.WHITE;
+        this.color = Color.CYAN;
     }
 
     /**
