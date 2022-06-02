@@ -18,22 +18,26 @@ public class Paddle implements Sprite, Collidable, GameObject {
 
     private KeyboardSensor sensor;
     private Rectangle paddleShape;
+    private int paddleSpeed;
 
     /**
      * Creates a paddle.
      *
      * @param sensor keyboard sensor
+     * @param paddleShape shape of paddle
+     * @param paddleSpeed speed of paddle
      */
-    public Paddle(KeyboardSensor sensor) {
+    public Paddle(KeyboardSensor sensor, Rectangle paddleShape, int paddleSpeed) {
         this.sensor = sensor;
-        this.paddleShape = new Rectangle(Consts.PUDDLE_INITIAL_TOP_LEFT, Consts.PUDDLE_HEIGHT, Consts.PUDDLE_WIDTH);
+        this.paddleShape = paddleShape;
+        this.paddleSpeed = paddleSpeed;
     }
 
     /**
      * Moves the paddle's position to the left.
      */
     public void moveLeft() {
-        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-Consts.PADDLE_SPEED, 0);
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
         if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_SIZE) {
             return;
@@ -45,7 +49,7 @@ public class Paddle implements Sprite, Collidable, GameObject {
      * Moves the paddle's position to the right.
      */
     public void moveRight() {
-        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(Consts.PADDLE_SPEED, 0);
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
         if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE) {
             return;
