@@ -160,7 +160,7 @@ public class GameLevel implements Animation {
                     Color.BLACK,
                     environment
             );
-//            ball.setVelocity(velocities.get(i));
+            ball.setVelocity(velocities.get(i));
             ball.addToGame(this);
         }
     }
