@@ -40,25 +40,33 @@ public class WideEasyLevel implements LevelInformation {
         for (int i = 0; i < NUMBER_OF_BLOCKS; i++) {
             Color color;
             switch (i) {
-                case 0, 1:
+                case 0:
+                case 1:
                     color = Color.RED;
                     break;
-                case 2, 3:
+                case 2:
+                case 3:
                     color = Color.ORANGE;
                     break;
-                case 4, 5:
+                case 4:
+                case 5:
                     color = Color.YELLOW;
                     break;
-                case 6, 7, 8:
+                case 6:
+                case 7:
+                case 8:
                     color = Color.GREEN;
                     break;
-                case 9, 10:
+                case 9:
+                case 10:
                     color = Color.BLUE;
                     break;
-                case 11, 12:
+                case 11:
+                case 12:
                     color = Color.PINK;
                     break;
-                case 13, 14:
+                case 13:
+                case 14:
                     color = Color.CYAN;
                     break;
                 default:
