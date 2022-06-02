@@ -51,6 +51,6 @@ public class CountdownAnimation implements Animation {
      */
     @Override
     public double getFramesPerSecond() {
-        return numOfSeconds / countFrom;
+        return countFrom / numOfSeconds;
     }
 }
