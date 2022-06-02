@@ -6,6 +6,7 @@ import game.AnimationRunner;
 import game.GameLevel;
 import levels.DirectHitLevel;
 import levels.LevelInformation;
+import levels.WideEasyLevel;
 import utils.Consts;
 
 import java.util.ArrayList;
@@ -27,7 +28,9 @@ public class Ass6Game {
         GameFlow flow = new GameFlow(gui.getKeyboardSensor(), runner);
 
         List<LevelInformation> levels = new ArrayList<>();
-        levels.add(new DirectHitLevel());
+//        levels.add(new DirectHitLevel());
+        levels.add(new WideEasyLevel());
+
         flow.runLevels(levels);
 
         gui.close();

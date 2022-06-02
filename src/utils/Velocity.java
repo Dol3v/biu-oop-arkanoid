@@ -2,6 +2,8 @@ package utils;
 
 import abstractshapes.Point;
 
+import java.util.List;
+
 /**
  * Stores the velocity of a moving object.
  */
@@ -42,6 +44,23 @@ public class Velocity {
     }
 
     /**
+     * Creates a {@code Velocity} object from randomly-selected angles and speeds.
+     *
+     * @param minAngle minimum angle that can be used
+     * @param maxAngle maximum angle that can be used
+     * @param minSpeed minimum speed that can be used
+     * @param maxSpeed maximum speed that can be used
+     * @return Velocity with angle in range {@code minAngle} to {@code maxAngle} (inclusive) and speed in range
+     * {@code minSpeed} to {@code maxSpeed} (inclusive)
+     */
+    public static Velocity randomFromRanges(double minAngle, double maxAngle, double minSpeed, double maxSpeed) {
+        return fromAngleAndSpeed(
+                minAngle + (maxAngle - minAngle) * Math.random(),
+                minSpeed + (maxSpeed - minSpeed) * Math.random()
+        );
+    }
+
+    /**
      * Returns a new utils.Velocity with the same speed, and the direction shifted clockwise by a set number of degrees.
      *
      * @param degrees degrees to shift
@@ -50,7 +69,7 @@ public class Velocity {
     public Velocity rotateBy(double degrees) {
         double size = Math.sqrt(dx * dx + dy * dy);
         double angle = Math.atan2(dy, dx);
-        double newAngle = angle + (degrees  * Math.PI / 180.);
+        double newAngle = angle + (degrees * Math.PI / 180.);
         return new Velocity(size * Math.cos(newAngle), size * Math.sin(newAngle));
     }
 

@@ -22,6 +22,8 @@ public interface LevelInformation {
     // Note that initialBallVelocities().size() == numberOfBalls()
     List<Velocity> initialBallVelocities();
 
+    List<Point> initialBallCenters();
+
     int paddleSpeed();
     int paddleWidth();
     // the level name will be displayed at the top of the screen.

@@ -1,5 +1,6 @@
 package levels;
 
+import abstractshapes.Point;
 import objects.Block;
 import objects.Sprite;
 import utils.Consts;
@@ -40,6 +41,19 @@ public class DirectHitLevel implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         return ballVelocities;
+    }
+
+    @Override
+    public List<Point> initialBallCenters() {
+        List<Point> centers = new ArrayList<>();
+        int paddleLeft = (Consts.SCREEN_WIDTH - paddleWidth()) / 2;
+        int xIncrement = paddleWidth() / (numberOfBalls() + 1);
+
+        for (int i = 0; i < numberOfBalls(); i++) {
+            centers.add(new Point(paddleLeft + (i + 1) * xIncrement,
+                    Consts.PADDLE_LOCATION_HEIGHT - Consts.BALL_RADIUS - Consts.BALL_MARGIN));
+        }
+        return centers;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class Paddle implements Sprite, Collidable, GameObject {
     public void moveLeft() {
         Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
-        if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_SIZE) {
+        if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_MARGIN_SIZE) {
             return;
         }
         paddleShape.setUpperLeft(newUpperLeft);
@@ -49,7 +49,7 @@ public class Paddle implements Sprite, Collidable, GameObject {
     public void moveRight() {
         Point newUpperLeft = paddleShape.getUpperLeft().addPoint(paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
-        if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE) {
+        if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_MARGIN_SIZE) {
             return;
         }
         paddleShape.setUpperLeft(newUpperLeft);
