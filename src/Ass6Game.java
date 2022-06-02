@@ -29,7 +29,7 @@ public class Ass6Game {
         levels.add(new DirectHitLevel());
 //        levels.add(new WideEasyLevel());
 //        levels.add(new Green3Level());
-//        levels.add(new FinalFourLevel());
+        levels.add(new FinalFourLevel());
         flow.runLevels(levels);
 
         gui.close();

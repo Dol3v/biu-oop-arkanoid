@@ -30,5 +30,6 @@ public class BallRemover implements HitListener {
     public void hitEvent(Block beingHit, Ball hitter) {
         hitter.removeFromGame(gameLevel);
         gameLevel.getAvailableBalls().decrease(1);
+        gameLevel.getLives().decrease(1);
     }
 }

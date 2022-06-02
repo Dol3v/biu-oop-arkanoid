@@ -41,17 +41,17 @@ public class GameLevel implements Animation {
     private static final int FRAMES_PER_SECOND = 60;
 
     private static final int SCORE_INCREASE_ON_LEVEL_COMPLETION = 100;
-    public static final int LIVES = 10;
 
     /**
      * Initializes the game's sprites and collidables.
      */
-    public GameLevel(LevelInformation levelInformation, KeyboardSensor sensor, AnimationRunner runner, Counter currentScore) {
+    public GameLevel(LevelInformation levelInformation, KeyboardSensor sensor, AnimationRunner runner,
+                     Counter currentScore, Counter lives) {
         this.currentLevel = levelInformation;
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.availableBalls = new Counter(levelInformation.numberOfBalls());
-        this.lives = new Counter(LIVES);
+        this.lives = lives;
         this.keyboardSensor = sensor;
         this.runner = runner;
         this.running = true;
@@ -204,6 +204,11 @@ public class GameLevel implements Animation {
             return;
         }
 
+        if (lives.getValue() == 0) {
+            running = false;
+            return;
+        }
+
         if (keyboardSensor.isPressed("p")) {
             runner.run(new PauseScreen(keyboardSensor));
         }
@@ -227,5 +232,9 @@ public class GameLevel implements Animation {
     @Override
     public double getFramesPerSecond() {
         return FRAMES_PER_SECOND;
+    }
+
+    public Counter getLives() {
+        return lives;
     }
 }
