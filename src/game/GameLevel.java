@@ -71,6 +71,9 @@ public class GameLevel implements Animation {
         this.ballRemover = new BallRemover(this);
         this.blockRemover = new BlockRemover(this, levelInformation.numberOfBlocksToRemove());
         this.scoreTrackingListener = new ScoreTrackingListener(currentScore);
+
+        // background
+        this.sprites.addSprite(currentLevel.getBackground());
     }
 
     /**
