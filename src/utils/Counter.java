@@ -5,7 +5,7 @@ package utils;
  *
  * @see Integer
  */
-public class Counter implements Fetcher<Integer>{
+public class Counter implements Fetcher<Integer> {
 
     private int value;
 

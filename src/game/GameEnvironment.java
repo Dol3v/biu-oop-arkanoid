@@ -2,7 +2,6 @@ package game;
 
 import abstractshapes.Line;
 import abstractshapes.Point;
-import game.CollisionInfo;
 import objects.Collidable;
 
 import java.util.ArrayList;

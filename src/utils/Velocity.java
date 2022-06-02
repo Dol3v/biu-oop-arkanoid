@@ -2,8 +2,6 @@ package utils;
 
 import abstractshapes.Point;
 
-import java.util.List;
-
 /**
  * Stores the velocity of a moving object.
  */
@@ -111,13 +109,5 @@ public class Velocity {
      */
     public double getDy() {
         return dy;
-    }
-
-    @Override
-    public String toString() {
-        return "Velocity{" +
-                "dx=" + dx +
-                ", dy=" + dy +
-                '}';
     }
 }

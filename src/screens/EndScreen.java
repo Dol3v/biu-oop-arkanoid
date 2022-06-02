@@ -1,7 +1,6 @@
 package screens;
 
 import biuoop.DrawSurface;
-import biuoop.KeyboardSensor;
 import game.Animation;
 
 /**
@@ -15,6 +14,12 @@ public class EndScreen implements Animation {
 
     private static final double FPS_RATE = 60;
 
+    /**
+     * Creates the end game screen animation.
+     *
+     * @param score player's score
+     * @param gameWon if the game was won or not
+     */
     public EndScreen(int score, boolean gameWon) {
         this.score = score;
         this.gameWon = gameWon;

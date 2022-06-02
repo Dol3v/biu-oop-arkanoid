@@ -20,6 +20,12 @@ public class GameFlow {
 
     public static final int MAX_LIVES = 10;
 
+    /**
+     * Creates the game flow object.
+     *
+     * @param keyboardSensor keyboard sensor
+     * @param runner animation runner
+     */
     public GameFlow(KeyboardSensor keyboardSensor, AnimationRunner runner) {
         this.keyboardSensor = keyboardSensor;
         this.runner = runner;
@@ -27,6 +33,11 @@ public class GameFlow {
         this.lives = new Counter(MAX_LIVES);
     }
 
+    /**
+     * Runs a list of levels, and displays the {@code EndScreen} animation when it has ended.
+     *
+     * @param levels list of levels to run successively
+     */
     public void runLevels(List<LevelInformation> levels) {
         boolean gameWon = true;
         for (LevelInformation level : levels) {

@@ -12,11 +12,21 @@ public class AnimationRunner {
     private GUI gui;
     private Sleeper sleeper;
 
+    /**
+     * Creates an animation runner.
+     *
+     * @param gui gui object
+     */
     public AnimationRunner(GUI gui) {
         this.gui = gui;
         this.sleeper = new Sleeper();
     }
 
+    /**
+     * Runs an animation.
+     *
+     * @param animation animation to run
+     */
     public void run(Animation animation) {
         int milliSecondsPerFrame = (int) (1000 / animation.getFramesPerSecond());
         while (!animation.shouldStop()) {

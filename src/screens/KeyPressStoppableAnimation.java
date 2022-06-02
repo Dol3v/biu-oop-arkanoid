@@ -15,6 +15,13 @@ public class KeyPressStoppableAnimation implements Animation {
     private Animation animation;
     private boolean isAlreadyPressed;
 
+    /**
+     * Creates a key-press-stoppable animation.
+     *
+     * @param sensor keyboard sensor
+     * @param key key to stop the animation
+     * @param animation animation to run
+     */
     public KeyPressStoppableAnimation(KeyboardSensor sensor, String key, Animation animation) {
         this.sensor = sensor;
         this.key = key;

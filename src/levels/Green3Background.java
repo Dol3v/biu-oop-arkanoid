@@ -4,7 +4,7 @@ import biuoop.DrawSurface;
 import objects.Sprite;
 import utils.Consts;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Background for the third level.
@@ -13,6 +13,9 @@ public class Green3Background implements Sprite {
 
     private final Color color;
 
+    /**
+     * Initializes the background.
+     */
     public Green3Background() {
         this.color = Color.WHITE;
     }

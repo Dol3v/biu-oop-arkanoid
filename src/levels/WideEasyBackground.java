@@ -4,12 +4,20 @@ import biuoop.DrawSurface;
 import objects.Sprite;
 import utils.Consts;
 
-import java.awt.*;
+import java.awt.Color;
 
+/**
+ * Background for the wide easy level.
+ *
+ * @see WideEasyLevel
+ */
 public class WideEasyBackground implements Sprite {
 
     private final Color color;
 
+    /**
+     * Initializes the background.
+     */
     public WideEasyBackground() {
         this.color = Color.WHITE;
     }

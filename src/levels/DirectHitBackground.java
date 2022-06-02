@@ -4,12 +4,20 @@ import biuoop.DrawSurface;
 import objects.Sprite;
 import utils.Consts;
 
-import java.awt.*;
+import java.awt.Color;
 
+/**
+ * Background for the direct hit level.
+ *
+ * @see DirectHitLevel
+ */
 public class DirectHitBackground implements Sprite {
 
     private final Color color;
 
+    /**
+     * Initializes the background.
+     */
     public DirectHitBackground() {
         this.color = Color.WHITE;
     }

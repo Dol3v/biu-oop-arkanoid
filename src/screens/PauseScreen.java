@@ -1,9 +1,11 @@
 package screens;
 
 import biuoop.DrawSurface;
-import biuoop.KeyboardSensor;
 import game.Animation;
 
+/**
+ * Game's pause screen.
+ */
 public class PauseScreen implements Animation {
 
     /**

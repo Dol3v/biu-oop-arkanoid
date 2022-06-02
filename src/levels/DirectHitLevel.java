@@ -6,10 +6,13 @@ import objects.Sprite;
 import utils.Consts;
 import utils.Velocity;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * First game level.
+ */
 public class DirectHitLevel implements LevelInformation {
 
     private Sprite background;
@@ -17,6 +20,9 @@ public class DirectHitLevel implements LevelInformation {
     private List<Block> blocks;
     private static final int PADDLE_SPEED = 5;
 
+    /**
+     * Initializes the level.
+     */
     public DirectHitLevel() {
         this.ballVelocities = new ArrayList<>();
         this.ballVelocities.add(Velocity.fromAngleAndSpeed(270, Consts.BALL_SPEED));

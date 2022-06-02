@@ -18,23 +18,60 @@ public interface LevelInformation {
      * @return number of balls
      */
     int numberOfBalls();
-    // The initial velocity of each ball
-    // Note that initialBallVelocities().size() == numberOfBalls()
+
+    /**
+     * Initial velocities of the balls.
+     *
+     * @return list of the balls initial velocities
+     */
     List<Velocity> initialBallVelocities();
 
+    /**
+     * Initial centers of the balls.
+     *
+     * @return list of the balls initial centers
+     */
     List<Point> initialBallCenters();
 
+    /**
+     * Speed of paddle.
+     *
+     * @return speed of paddle
+     */
     int paddleSpeed();
+
+    /**
+     * Width of paddle.
+     *
+     * @return width of paddle
+     */
     int paddleWidth();
-    // the level name will be displayed at the top of the screen.
+
+    /**
+     * Name of the level.
+     *
+     * @return level name
+     */
     String levelName();
-    // Returns a sprite with the background of the level
+
+    /**
+     * Background sprite.
+     *
+     * @return the level's background sprite
+     */
     Sprite getBackground();
-    // The Blocks that make up this level, each block contains
-    // its size, color and location.
+
+    /**
+     * List of the level's blocks.
+     *
+     * @return level's blocks
+     */
     List<Block> blocks();
-    // Number of blocks that should be removed
-    // before the level is considered to be "cleared".
-    // This number should be <= blocks.size();
+
+    /**
+     * The number of blocks in the level.
+     *
+     * @return the number of blocks in the level
+     */
     int numberOfBlocksToRemove();
 }

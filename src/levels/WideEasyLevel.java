@@ -1,13 +1,12 @@
 package levels;
 
 import abstractshapes.Point;
-import com.sun.source.tree.BreakTree;
 import objects.Block;
 import objects.Sprite;
 import utils.Consts;
 import utils.Velocity;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +27,9 @@ public class WideEasyLevel implements LevelInformation {
     private static final int BLOCKS_Y = 300;
     private static final int BLOCK_HEIGHT = 30;
 
+    /**
+     * Initializes the level.
+     */
     public WideEasyLevel() {
         velocities = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_BALLS; i++) {

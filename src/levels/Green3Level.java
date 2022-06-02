@@ -6,10 +6,13 @@ import objects.Sprite;
 import utils.Consts;
 import utils.Velocity;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Information for the third level.
+ */
 public class Green3Level implements LevelInformation {
 
     private List<Point> ballCenters;
@@ -23,6 +26,9 @@ public class Green3Level implements LevelInformation {
     private static final int BLOCK_LENGTH = 40;
     private static final int BLOCK_STARTING_HEIGHT = 400;
 
+    /**
+     * Initializes the level.
+     */
     public Green3Level() {
         this.ballCenters = new ArrayList<>();
         this.velocities = new ArrayList<>();

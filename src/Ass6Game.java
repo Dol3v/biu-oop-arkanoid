@@ -1,10 +1,12 @@
 // Dolev Dabush, id: 215372939
 
 import biuoop.GUI;
-import game.Animation;
 import game.AnimationRunner;
-import game.GameLevel;
-import levels.*;
+import levels.DirectHitLevel;
+import levels.WideEasyLevel;
+import levels.Green3Level;
+import levels.FinalFourLevel;
+import levels.LevelInformation;
 import utils.Consts;
 
 import java.util.ArrayList;

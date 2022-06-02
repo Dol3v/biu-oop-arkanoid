@@ -6,10 +6,13 @@ import objects.Sprite;
 import utils.Consts;
 import utils.Velocity;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game's fourth level.
+ */
 public class FinalFourLevel implements LevelInformation {
 
     private List<Point> ballCenters;
@@ -27,6 +30,9 @@ public class FinalFourLevel implements LevelInformation {
     private static final int PADDLE_SPEED = 9;
     private static final int PADDLE_WIDTH = 110;
 
+    /**
+     * Initializes the level.
+     */
     public FinalFourLevel() {
         this.ballCenters = new ArrayList<>();
         this.velocities = new ArrayList<>();

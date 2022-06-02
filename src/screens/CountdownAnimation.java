@@ -15,6 +15,13 @@ public class CountdownAnimation implements Animation {
 
     private int currentNumber;
 
+    /**
+     * Creates a countdown animation.
+     *
+     * @param numOfSeconds number of seconds the animation should last
+     * @param countFrom number to count from downwards to zero
+     * @param gameScreen game screen before the animation started
+     */
     public CountdownAnimation(double numOfSeconds, int countFrom, SpriteCollection gameScreen) {
         this.numOfSeconds = numOfSeconds;
         this.countFrom = countFrom;
