@@ -105,7 +105,7 @@ public class Paddle implements Sprite, Collidable, GameObject {
             default:
                 break;
         }
-        return currentVelocity.rotateBy(shift);
+        return currentVelocity.rotateBy(-shift);
     }
 
     @Override
