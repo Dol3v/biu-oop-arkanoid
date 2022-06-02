@@ -1,5 +1,8 @@
+package game;
+
 import abstractshapes.Line;
 import abstractshapes.Point;
+import objects.Collidable;
 
 import java.util.ArrayList;
 import java.util.List;

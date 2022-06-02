@@ -1,3 +1,5 @@
+package hitlisteners;
+
 /**
  * Notifies listeners when an object was hit.
  *

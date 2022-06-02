@@ -1,7 +1,13 @@
+package objects;
+
 import abstractshapes.Point;
 import abstractshapes.Rectangle;
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
+import game.GameLevel;
+import game.GameObject;
+import utils.Consts;
+import utils.Velocity;
 
 /**
  * User controlled, moving collidable paddle.
@@ -10,24 +16,28 @@ public class Paddle implements Sprite, Collidable, GameObject {
 
     private KeyboardSensor sensor;
     private Rectangle paddleShape;
+    private int paddleSpeed;
 
     /**
      * Creates a paddle.
      *
      * @param sensor keyboard sensor
+     * @param paddleShape shape of paddle
+     * @param paddleSpeed speed of paddle
      */
-    public Paddle(KeyboardSensor sensor) {
+    public Paddle(KeyboardSensor sensor, Rectangle paddleShape, int paddleSpeed) {
         this.sensor = sensor;
-        this.paddleShape = new Rectangle(Consts.PUDDLE_INITIAL_TOP_LEFT, Consts.PUDDLE_HEIGHT, Consts.PUDDLE_WIDTH);
+        this.paddleShape = paddleShape;
+        this.paddleSpeed = paddleSpeed;
     }
 
     /**
      * Moves the paddle's position to the left.
      */
     public void moveLeft() {
-        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-Consts.PADDLE_SPEED, 0);
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(-paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
-        if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_SIZE) {
+        if (newUpperLeft.getX() < Consts.BOUNDARY_BLOCK_MARGIN_SIZE) {
             return;
         }
         paddleShape.setUpperLeft(newUpperLeft);
@@ -37,9 +47,9 @@ public class Paddle implements Sprite, Collidable, GameObject {
      * Moves the paddle's position to the right.
      */
     public void moveRight() {
-        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(Consts.PADDLE_SPEED, 0);
+        Point newUpperLeft = paddleShape.getUpperLeft().addPoint(paddleSpeed, 0);
         // making sure the paddle can't go further than the screen boundaries
-        if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE) {
+        if (newUpperLeft.getX() + paddleShape.getWidth() >= Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_MARGIN_SIZE) {
             return;
         }
         paddleShape.setUpperLeft(newUpperLeft);
@@ -95,29 +105,29 @@ public class Paddle implements Sprite, Collidable, GameObject {
             default:
                 break;
         }
-        return currentVelocity.rotateBy(shift);
+        return currentVelocity.rotateBy(-shift);
     }
 
     @Override
-    public void addToGame(Game game) {
-        game.addSprite(this);
-        game.addCollidable(this);
+    public void addToGame(GameLevel gameLevel) {
+        gameLevel.addSprite(this);
+        gameLevel.addCollidable(this);
     }
 
     /**
      * Removes the object from the game.
      *
-     * @param game game to remove the object from
+     * @param gameLevel game to remove the object from
      */
     @Override
-    public void removeFromGame(Game game) {
-        game.removeCollidable(this);
-        game.removeSprite(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        gameLevel.removeCollidable(this);
+        gameLevel.removeSprite(this);
     }
 
     @Override
     public void drawOn(DrawSurface surface) {
-        paddleShape.drawOn(surface, Consts.PUDDLE_COLOR);
+        paddleShape.drawOn(surface, Consts.PADDLE_COLOR);
     }
 
     @Override

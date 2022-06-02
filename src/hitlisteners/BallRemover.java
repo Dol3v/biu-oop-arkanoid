@@ -1,17 +1,23 @@
+package hitlisteners;
+
+import game.GameLevel;
+import objects.Ball;
+import objects.Block;
+
 /**
  * A hit listener that removes balls when hit.
  */
 public class BallRemover implements HitListener {
 
-    private Game game;
+    private GameLevel gameLevel;
 
     /**
      * Creates a ball remover.
      *
-     * @param game game session
+     * @param gameLevel game session
      */
-    public BallRemover(Game game) {
-        this.game = game;
+    public BallRemover(GameLevel gameLevel) {
+        this.gameLevel = gameLevel;
     }
 
     /**
@@ -22,7 +28,8 @@ public class BallRemover implements HitListener {
      */
     @Override
     public void hitEvent(Block beingHit, Ball hitter) {
-        hitter.removeFromGame(game);
-        game.getAvailableBalls().decrease(1);
+        hitter.removeFromGame(gameLevel);
+        gameLevel.getAvailableBalls().decrease(1);
+        gameLevel.getLives().decrease(1);
     }
 }

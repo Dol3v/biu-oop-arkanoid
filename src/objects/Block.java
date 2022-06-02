@@ -1,6 +1,14 @@
+package objects;
+
 import abstractshapes.Point;
 import abstractshapes.Rectangle;
 import biuoop.DrawSurface;
+import game.GameLevel;
+import game.GameObject;
+import hitlisteners.HitListener;
+import hitlisteners.HitNotifier;
+import utils.Utils;
+import utils.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -75,19 +83,19 @@ public class Block implements Collidable, Sprite, GameObject, HitNotifier {
     }
 
     @Override
-    public void addToGame(Game game) {
-        game.addCollidable(this);
-        game.addSprite(this);
+    public void addToGame(GameLevel gameLevel) {
+        gameLevel.addCollidable(this);
+        gameLevel.addSprite(this);
     }
 
     /**
      * Removes the object from the game.
      *
-     * @param game game session
+     * @param gameLevel game session
      */
-    public void removeFromGame(Game game) {
-        game.removeCollidable(this);
-        game.removeSprite(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        gameLevel.removeCollidable(this);
+        gameLevel.removeSprite(this);
         removeAllHitListeners();
     }
 

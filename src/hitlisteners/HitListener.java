@@ -1,3 +1,8 @@
+package hitlisteners;
+
+import objects.Ball;
+import objects.Block;
+
 /**
  * An object that listens to hit events.
  */

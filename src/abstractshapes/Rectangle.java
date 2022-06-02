@@ -31,6 +31,19 @@ public class Rectangle {
     }
 
     /**
+     * Creates a rectangle.
+     *
+     * @param x upper left point's x coordinate
+     * @param y upper left's point y coordinate
+     * @param height    height
+     * @param width     width
+     */
+    public Rectangle(double x, double y, double height, double width) {
+        this(new Point(x, y), height, width);
+    }
+
+
+    /**
      * Returns the (possibly empty) intersection points of a line with the rectangle.
      *
      * @param line line to check collision with
@@ -58,6 +71,8 @@ public class Rectangle {
      * @param color   rectangle color
      */
     public void drawOn(DrawSurface surface, Color color) {
+        surface.setColor(Color.BLACK);
+        surface.drawRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) width, (int) height);
         surface.setColor(color);
         surface.fillRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) width, (int) height);
     }

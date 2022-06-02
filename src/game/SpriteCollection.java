@@ -1,4 +1,7 @@
+package game;
+
 import biuoop.DrawSurface;
+import objects.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +59,10 @@ public class SpriteCollection {
         for (Sprite sprite : sprites) {
             sprite.drawOn(drawSurface);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "sprite collection of length " + sprites.size() + ", " + sprites;
     }
 }
