@@ -72,6 +72,8 @@ public class Ball implements Sprite, GameObject {
      */
     @Override
     public void drawOn(DrawSurface surface) {
+        surface.setColor(Color.BLACK);
+        surface.drawCircle(getX(), getY(), r);
         surface.setColor(this.color);
         surface.fillCircle(getX(), getY(), r);
     }

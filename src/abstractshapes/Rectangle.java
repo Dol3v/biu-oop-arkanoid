@@ -71,6 +71,8 @@ public class Rectangle {
      * @param color   rectangle color
      */
     public void drawOn(DrawSurface surface, Color color) {
+        surface.setColor(Color.BLACK);
+        surface.drawRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) width, (int) height);
         surface.setColor(color);
         surface.fillRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) width, (int) height);
     }
