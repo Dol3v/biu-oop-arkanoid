@@ -18,7 +18,7 @@ public class GameFlow {
     private Counter score;
     private Counter lives;
 
-    public static final int MAX_LIVES = 1;
+    public static final int MAX_LIVES = 10;
 
     public GameFlow(KeyboardSensor keyboardSensor, AnimationRunner runner) {
         this.keyboardSensor = keyboardSensor;
