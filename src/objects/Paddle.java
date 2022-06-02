@@ -6,8 +6,6 @@ import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import game.GameLevel;
 import game.GameObject;
-import objects.Ball;
-import objects.Collidable;
 import utils.Consts;
 import utils.Velocity;
 
@@ -129,7 +127,7 @@ public class Paddle implements Sprite, Collidable, GameObject {
 
     @Override
     public void drawOn(DrawSurface surface) {
-        paddleShape.drawOn(surface, Consts.PUDDLE_COLOR);
+        paddleShape.drawOn(surface, Consts.PADDLE_COLOR);
     }
 
     @Override

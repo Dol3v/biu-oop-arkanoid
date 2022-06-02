@@ -5,7 +5,7 @@ package utils;
  *
  * @see Integer
  */
-public class Counter {
+public class Counter implements Fetcher<Integer>{
 
     private int value;
 
@@ -41,7 +41,7 @@ public class Counter {
      *
      * @return value of counter
      */
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 }

@@ -6,11 +6,12 @@ import biuoop.KeyboardSensor;
 import hitlisteners.BallRemover;
 import hitlisteners.BlockRemover;
 import hitlisteners.ScoreTrackingListener;
-import indicators.ScoreIndicator;
+import statsbar.Indicator;
 import levels.LevelInformation;
 import objects.*;
 import screens.CountdownAnimation;
 import screens.PauseScreen;
+import statsbar.StatsBar;
 import utils.Consts;
 import utils.Counter;
 
@@ -29,6 +30,7 @@ public class GameLevel implements Animation {
     private BallRemover ballRemover;
     private ScoreTrackingListener scoreTrackingListener;
     private Counter availableBalls;
+    private Counter lives;
     private AnimationRunner runner;
     private boolean running;
     private KeyboardSensor keyboardSensor;
@@ -38,16 +40,17 @@ public class GameLevel implements Animation {
 
     private static final int SCORE_INCREASE_ON_LEVEL_COMPLETION = 100;
     public static final int BALL_RADIUS = 10;
+    public static final int LIVES = 10;
 
     /**
      * Initializes the game's sprites and collidables.
      */
-    public GameLevel(LevelInformation levelInformation, KeyboardSensor sensor, AnimationRunner runner,
-                     Counter currentScore) {
+    public GameLevel(LevelInformation levelInformation, KeyboardSensor sensor, AnimationRunner runner, Counter currentScore) {
         this.currentLevel = levelInformation;
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.availableBalls = new Counter(levelInformation.numberOfBalls());
+        this.lives = new Counter(LIVES);
         this.keyboardSensor = sensor;
         this.runner = runner;
         this.running = true;
@@ -96,18 +99,14 @@ public class GameLevel implements Animation {
 
     private void addBoundaryBlocks() {
         // creating death block
-        Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE,
-                Consts.SCREEN_WIDTH, Color.GRAY);
+        Block deathBlock = new Block(0, Consts.SCREEN_HEIGHT - Consts.BOUNDARY_BLOCK_SIZE, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY);
         deathBlock.addHitListener(ballRemover);
 
         List<Block> boundaryBlocks = new ArrayList<>();
-        boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT, Consts.SCREEN_HEIGHT,
-                Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
-        boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, Consts.SCORE_INDICATOR_HEIGHT,
-                Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
+        boundaryBlocks.add(new Block(0, Consts.STATS_BAR_HEIGHT, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
+        boundaryBlocks.add(new Block(Consts.SCREEN_WIDTH - Consts.BOUNDARY_BLOCK_SIZE, Consts.STATS_BAR_HEIGHT, Consts.SCREEN_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Color.GRAY));
         boundaryBlocks.add(deathBlock);
-        boundaryBlocks.add(new Block(0, Consts.SCORE_INDICATOR_HEIGHT,
-                Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
+        boundaryBlocks.add(new Block(0, Consts.STATS_BAR_HEIGHT, Consts.BOUNDARY_BLOCK_SIZE, Consts.SCREEN_WIDTH, Color.GRAY));
 
         for (Block boundaryBlock : boundaryBlocks) {
             boundaryBlock.addToGame(this);
@@ -126,15 +125,27 @@ public class GameLevel implements Animation {
         addBoundaryBlocks();
 
         // adding paddle
-        Paddle paddle = new Paddle(keyboardSensor,
-                new Rectangle(Consts.SCREEN_WIDTH / 2. - currentLevel.paddleWidth() / 2.,
-                        Consts.PADDLE_LOCATION_HEIGHT,
-                        Consts.PADDLE_HEIGHT, currentLevel.paddleWidth()),
-                currentLevel.paddleSpeed());
+        Paddle paddle = new Paddle(keyboardSensor, new Rectangle(Consts.SCREEN_WIDTH / 2. - currentLevel.paddleWidth() / 2., Consts.PADDLE_LOCATION_HEIGHT, Consts.PADDLE_HEIGHT, currentLevel.paddleWidth()), currentLevel.paddleSpeed());
         paddle.addToGame(this);
 
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreTrackingListener.getCurrentScore());
+        // adding stats bar
+        StatsBar statsBar = new StatsBar();
+        addSprite(statsBar);
+
+        Indicator<Integer> scoreIndicator = new Indicator<>(scoreTrackingListener.getCurrentScore(),
+                20,
+                "Score");
         addSprite(scoreIndicator);
+
+        Indicator<Integer> livesIndicator = new Indicator<>(lives,
+                Consts.SCREEN_WIDTH - 80,
+                "Lives");
+        addSprite(livesIndicator);
+
+        Indicator<String> levelNameIndicator = new Indicator<>(() -> currentLevel.levelName(),
+                Consts.SCREEN_WIDTH / 2,
+                "Name");
+        addSprite(levelNameIndicator);
     }
 
     public void createBallsOnTopOfPaddle() {
@@ -142,11 +153,7 @@ public class GameLevel implements Animation {
         int xIncrement = currentLevel.paddleWidth() / (currentLevel.numberOfBalls() + 1);
 
         for (int i = 0; i < currentLevel.numberOfBalls(); i++) {
-            Ball ball = new Ball(paddleLeft + (i + 1) * xIncrement,
-                    Consts.PADDLE_LOCATION_HEIGHT - BALL_RADIUS - Consts.BALL_MARGIN,
-                    BALL_RADIUS,
-                    Color.BLACK,
-                    environment);
+            Ball ball = new Ball(paddleLeft + (i + 1) * xIncrement, Consts.PADDLE_LOCATION_HEIGHT - BALL_RADIUS - Consts.BALL_MARGIN, BALL_RADIUS, Color.BLACK, environment);
             ball.setVelocity(currentLevel.initialBallVelocities().get(i));
             ball.addToGame(this);
         }
