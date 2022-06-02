@@ -5,6 +5,7 @@ import game.Animation;
 import game.AnimationRunner;
 import game.GameLevel;
 import levels.DirectHitLevel;
+import levels.Green3Level;
 import levels.LevelInformation;
 import levels.WideEasyLevel;
 import utils.Consts;
@@ -29,8 +30,8 @@ public class Ass6Game {
 
         List<LevelInformation> levels = new ArrayList<>();
 //        levels.add(new DirectHitLevel());
-        levels.add(new WideEasyLevel());
-
+//        levels.add(new WideEasyLevel());
+        levels.add(new Green3Level());
         flow.runLevels(levels);
 
         gui.close();

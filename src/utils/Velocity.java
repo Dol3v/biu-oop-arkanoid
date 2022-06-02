@@ -61,6 +61,18 @@ public class Velocity {
     }
 
     /**
+     * Creates a {@code Velocity} object from randomly-selected angles and speeds.
+     *
+     * @param minAngle minimum angle that can be used
+     * @param maxAngle maximum angle that can be used
+     * @param speed speed of ball
+     * @return Velocity with angle in range {@code minAngle} to {@code maxAngle} (inclusive) and speed {@code speed}
+     */
+    public static Velocity randomFromRanges(double minAngle, double maxAngle, double speed) {
+        return randomFromRanges(minAngle, maxAngle, speed, speed);
+    }
+
+    /**
      * Returns a new utils.Velocity with the same speed, and the direction shifted clockwise by a set number of degrees.
      *
      * @param degrees degrees to shift
