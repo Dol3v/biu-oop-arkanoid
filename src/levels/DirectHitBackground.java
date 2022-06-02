@@ -31,6 +31,16 @@ public class DirectHitBackground implements Sprite {
     public void drawOn(DrawSurface surface) {
         surface.setColor(color);
         surface.fillRectangle(Consts.STARTING_X, Consts.STARTING_Y, Consts.ENDING_X, Consts.ENDING_Y);
+
+        surface.setColor(Color.RED);
+        surface.drawCircle(Consts.SCREEN_WIDTH / 2, Consts.SCREEN_HEIGHT / 2, 120);
+        surface.drawCircle(Consts.SCREEN_WIDTH / 2, Consts.SCREEN_HEIGHT / 2, 90);
+        surface.drawCircle(Consts.SCREEN_WIDTH / 2, Consts.SCREEN_HEIGHT / 2, 60);
+
+        surface.drawLine(Consts.SCREEN_WIDTH / 2 + 150, Consts.SCREEN_HEIGHT / 2,
+                Consts.SCREEN_WIDTH / 2 - 150, Consts.SCREEN_HEIGHT / 2);
+        surface.drawLine(Consts.SCREEN_WIDTH / 2, Consts.SCREEN_HEIGHT / 2 + 150,
+                Consts.SCREEN_WIDTH / 2, Consts.SCREEN_HEIGHT / 2 - 150);
     }
 
     /**
