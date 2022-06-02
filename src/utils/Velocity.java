@@ -81,4 +81,12 @@ public class Velocity {
     public double getDy() {
         return dy;
     }
+
+    @Override
+    public String toString() {
+        return "Velocity{" +
+                "dx=" + dx +
+                ", dy=" + dy +
+                '}';
+    }
 }

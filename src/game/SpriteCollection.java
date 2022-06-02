@@ -60,4 +60,9 @@ public class SpriteCollection {
             sprite.drawOn(drawSurface);
         }
     }
+
+    @Override
+    public String toString() {
+        return "sprite collection of length " + sprites.size() + ", " + sprites;
+    }
 }
