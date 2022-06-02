@@ -123,6 +123,7 @@ public class GameLevel implements Animation {
         for (Block block : currentLevel.blocks()) {
             block.addToGame(this);
             block.addHitListener(blockRemover);
+            block.addHitListener(scoreTrackingListener);
         }
         addBoundaryBlocks();
 
