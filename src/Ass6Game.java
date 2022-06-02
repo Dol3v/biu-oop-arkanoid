@@ -26,10 +26,10 @@ public class Ass6Game {
         GameFlow flow = new GameFlow(gui.getKeyboardSensor(), runner);
 
         List<LevelInformation> levels = new ArrayList<>();
-//        levels.add(new DirectHitLevel());
+        levels.add(new DirectHitLevel());
 //        levels.add(new WideEasyLevel());
 //        levels.add(new Green3Level());
-        levels.add(new FinalFourLevel());
+//        levels.add(new FinalFourLevel());
         flow.runLevels(levels);
 
         gui.close();

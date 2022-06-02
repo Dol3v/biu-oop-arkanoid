@@ -2,6 +2,7 @@ import biuoop.KeyboardSensor;
 import game.AnimationRunner;
 import game.GameLevel;
 import levels.LevelInformation;
+import screens.EndScreen;
 import utils.Counter;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class GameFlow {
     }
 
     public void runLevels(List<LevelInformation> levels) {
+        boolean gameWon = true;
         for (LevelInformation level : levels) {
             GameLevel gameLevel = new GameLevel(level, keyboardSensor, runner, score);
             gameLevel.initialize();
@@ -29,8 +31,10 @@ public class GameFlow {
             gameLevel.run();
 
             if (gameLevel.getAvailableBalls().getValue() == 0) {
+                gameWon = false;
                 break;
             }
         }
+        runner.run(new EndScreen(keyboardSensor, score.getValue(), gameWon));
     }
 }
