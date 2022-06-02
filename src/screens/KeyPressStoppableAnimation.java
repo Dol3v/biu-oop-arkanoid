@@ -13,19 +13,24 @@ public class KeyPressStoppableAnimation implements Animation {
     private KeyboardSensor sensor;
     private String key;
     private Animation animation;
+    private boolean isAlreadyPressed;
 
     public KeyPressStoppableAnimation(KeyboardSensor sensor, String key, Animation animation) {
         this.sensor = sensor;
         this.key = key;
         this.animation = animation;
         this.shouldStop = false;
+        this.isAlreadyPressed = true;
     }
 
     @Override
     public void doOneFrame(DrawSurface d) {
         animation.doOneFrame(d);
         if (sensor.isPressed(key)) {
-            shouldStop = true;
+            // if the key is already pressed, we don't want the game to stop
+            shouldStop = !isAlreadyPressed;
+        } else {
+            isAlreadyPressed = false;
         }
     }
 
