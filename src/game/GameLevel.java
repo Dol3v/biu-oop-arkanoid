@@ -7,6 +7,7 @@ import biuoop.KeyboardSensor;
 import hitlisteners.BallRemover;
 import hitlisteners.BlockRemover;
 import hitlisteners.ScoreTrackingListener;
+import screens.KeyPressStoppableAnimation;
 import statsbar.Indicator;
 import levels.LevelInformation;
 import objects.*;
@@ -210,7 +211,8 @@ public class GameLevel implements Animation {
         }
 
         if (keyboardSensor.isPressed("p")) {
-            runner.run(new PauseScreen(keyboardSensor));
+            runner.run(new KeyPressStoppableAnimation(keyboardSensor, KeyboardSensor.SPACE_KEY,
+                    new PauseScreen()));
         }
     }
 

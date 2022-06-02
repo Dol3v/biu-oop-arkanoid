@@ -3,6 +3,7 @@ import game.AnimationRunner;
 import game.GameLevel;
 import levels.LevelInformation;
 import screens.EndScreen;
+import screens.KeyPressStoppableAnimation;
 import utils.Counter;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class GameFlow {
                 break;
             }
         }
-        runner.run(new EndScreen(keyboardSensor, score.getValue(), gameWon));
+        runner.run(new KeyPressStoppableAnimation(keyboardSensor, KeyboardSensor.SPACE_KEY,
+                new EndScreen(score.getValue(), gameWon)));
     }
 }

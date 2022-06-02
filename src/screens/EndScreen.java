@@ -9,19 +9,15 @@ import game.Animation;
  */
 public class EndScreen implements Animation {
 
-    private boolean shouldStop;
-    private KeyboardSensor sensor;
     private int score;
     private boolean gameWon;
     private String message;
 
     private static final double FPS_RATE = 60;
 
-    public EndScreen(KeyboardSensor sensor, int score, boolean gameWon) {
-        this.sensor = sensor;
+    public EndScreen(int score, boolean gameWon) {
         this.score = score;
         this.gameWon = gameWon;
-        this.shouldStop = false;
         if (gameWon) {
             message = "You Win! Your score is " + score;
         } else {
@@ -32,12 +28,11 @@ public class EndScreen implements Animation {
     @Override
     public void doOneFrame(DrawSurface d) {
         d.drawText(10, d.getHeight() / 2, message, 32);
-        if (sensor.isPressed(KeyboardSensor.SPACE_KEY)) { shouldStop = true; }
     }
 
     @Override
     public boolean shouldStop() {
-        return shouldStop;
+        return false;
     }
 
     @Override
